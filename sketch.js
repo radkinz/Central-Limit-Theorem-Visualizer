@@ -1,14 +1,21 @@
 let button;
 let heights;
 
+let run = false;
+
 function setup() {
-  createCanvas(innerWidth, innerHeight - 50);
-  button = select("button");
-  button.mouseClicked(CentralLimitTheorem);
+  createCanvas(innerWidth, innerHeight - 40);
+  button = select("#button");
+  button.mouseClicked(function() {
+    console.log('hii')
+    run =! run;
+  });
 }
 
 function draw(){
-  CentralLimitTheorem();
+  if (run) {
+    CentralLimitTheorem();
+  }
 }
 
 function CentralLimitTheorem() {
