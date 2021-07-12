@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,15 +11,26 @@
 
     <title>Central Limit Theorem</title>
 </head>
+
 <body>
 
-    <div>
-        <h2>Population</h2>
-        <canvas id="populationCanvas" width="500px" height="300px"></canvas>
+    <div Id="container">
+        <div id="sidebar">
+            <button id="button">Start Sampling</button>
+        </div>
+
+        <div id="main">
+            <div>
+                <h2>Population</h2>
+                <canvas id="populationCanvas" width="500px" height="200px"></canvas>
+            </div>
+            <h2>Sample Means</h2>
+            <div>
+                <canvas id="myCanvas" width="500px" height="200px"></canvas>
+            </div>
+        </div>
     </div>
-    <h2>Samples</h2>
-    <button id = "button">Click Here</button>
-    <canvas id="myCanvas" width="500px" height="500px"></canvas>
-    
+
 </body>
+
 </html>
