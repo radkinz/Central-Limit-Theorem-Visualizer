@@ -8,6 +8,11 @@ let run = false;
 //setup
 document.getElementById("button").onclick = function () {
     run = !run;
+    if (run) {
+        document.getElementById("button").innerHTML = "Stop Sampling";
+    } else {
+        document.getElementById("button").innerHTML = "Start Sampling";
+    }
 };
 
 //setup population
@@ -61,7 +66,7 @@ for (let i = 0; i < population.length; i++) {
 
 //display graph
 for (let i = 0; i < populationheights.length; i++) {
-    rect(i * 10, 300, 10, -populationheights[i], "#000000", "populationCanvas");
+    rect(i * 10, 200, 10, -populationheights[i], "#000000", "populationCanvas");
 }
 
 function loop() {
@@ -78,7 +83,7 @@ loop();
 
 function CentralLimitTheorem() {
     //clear background
-    rect(0, 0, 500, 500, "#FFFFFF", "myCanvas");
+    rect(0, 0, 500, 200, "#FFFFFF", "myCanvas");
 
     //get random samples from population
     let nums = [];
@@ -135,9 +140,17 @@ function CentralLimitTheorem() {
         heights[9] += 1;
     }
 
+    //get total 
+    let total = 0;
+    for (let i = 0; i < heights.length; i++) {
+        total += heights[i];
+    }
+
     //graph distribution
     for (let i = 0; i < heights.length; i++) {
-        rect(i * 10, 500, 10, -heights[i], "#000000", "myCanvas");
+        //get percentage
+        let height = (heights[i] / total) * 500;
+        rect(i * 10, 200, 10, -height, "#000000", "myCanvas");
     }
 }
 
