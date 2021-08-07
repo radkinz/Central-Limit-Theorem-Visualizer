@@ -6,3 +6,7 @@
 #main {
     float: left;
 }
+
+canvas {
+    border:2px solid black;
+}
