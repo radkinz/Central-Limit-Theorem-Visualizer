@@ -66,7 +66,7 @@ for (let i = 0; i < population.length; i++) {
 
 //display graph
 for (let i = 0; i < populationheights.length; i++) {
-    rect(i * 10, 200, 10, -populationheights[i], "#000000", "populationCanvas");
+    rect(i * (document.getElementById('populationCanvas').width/10), 200, document.getElementById('populationCanvas').width/10, -populationheights[i], "#000000", "populationCanvas");
 }
 
 function loop() {
@@ -150,7 +150,7 @@ function CentralLimitTheorem() {
     for (let i = 0; i < heights.length; i++) {
         //get percentage
         let height = (heights[i] / total) * 500;
-        rect(i * 10, 200, 10, -height, "#000000", "myCanvas");
+        rect(i * (document.getElementById("myCanvas").width/10), 200, document.getElementById("myCanvas").width/10, -height, "#000000", "myCanvas");
     }
 }
 
@@ -160,6 +160,9 @@ function rect(x, y, w, h, color, canvas) {
     ctx.beginPath();
     ctx.fillStyle = color;
     ctx.fillRect(x, y, w, h);
+    ctx.strokeStyle="#FFF";
+    ctx.rect(x, y, w, h);
+    ctx.stroke();
 }
 
 function random(min, max) {
