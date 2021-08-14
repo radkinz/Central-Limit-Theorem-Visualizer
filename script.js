@@ -1,9 +1,16 @@
-console.log("yoooo")
-
 //declare global variables
 let button;
 let heights;
 let run = false;
+
+//set canvas element to porportion of browser height
+document.getElementById("sampleCanvas").width = (window.innerWidth*0.50);
+document.getElementById("sampleCanvas").height = (window.innerHeight*0.35);
+document.getElementById("populationCanvas").width = (window.innerWidth*0.50);
+document.getElementById("populationCanvas").height = (window.innerHeight*0.35);
+
+let width = document.getElementById("sampleCanvas").width;
+let height = document.getElementById("sampleCanvas").height;
 
 //setup
 document.getElementById("button").onclick = function () {
@@ -66,7 +73,7 @@ for (let i = 0; i < population.length; i++) {
 
 //display graph
 for (let i = 0; i < populationheights.length; i++) {
-    rect(i * (document.getElementById('populationCanvas').width/10), 200, document.getElementById('populationCanvas').width/10, -populationheights[i], "#000000", "populationCanvas");
+    rect(i * (width/10), height, width/10, -populationheights[i], "#000000", "populationCanvas");
 }
 
 function loop() {
@@ -83,7 +90,7 @@ loop();
 
 function CentralLimitTheorem() {
     //clear background
-    rect(0, 0, 500, 200, "#FFFFFF", "myCanvas");
+    rect(0, 0, width, height, "#FFFFFF", "sampleCanvas");
 
     //get random samples from population
     let nums = [];
@@ -142,16 +149,26 @@ function CentralLimitTheorem() {
 
     //get total 
     let total = 0;
+    let max = 0;
     for (let i = 0; i < heights.length; i++) {
         total += heights[i];
+
+        //get max
+        if (heights[i] > max) {
+            max = heights[i];
+        }
     }
 
     //graph distribution
     for (let i = 0; i < heights.length; i++) {
         //get percentage
-        let height = (heights[i] / total) * 500;
-        rect(i * (document.getElementById("myCanvas").width/10), 200, document.getElementById("myCanvas").width/10, -height, "#000000", "myCanvas");
+        let barheight = (heights[i] / total) * height * 3;
+        rect(i * (width/10), height, width/10, -barheight, "#000000", "sampleCanvas");
     }
+}
+
+function map(x, current_min, current_max, new_min, new_max) {
+    return ((x-current_min)/(current_max-current_min))*new_max;
 }
 
 function rect(x, y, w, h, color, canvas) {
