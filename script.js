@@ -4,13 +4,31 @@ let heights;
 let run = false;
 
 //set canvas element to porportion of browser height
-document.getElementById("sampleCanvas").width = (window.innerWidth*0.50);
-document.getElementById("sampleCanvas").height = (window.innerHeight*0.35);
-document.getElementById("populationCanvas").width = (window.innerWidth*0.50);
-document.getElementById("populationCanvas").height = (window.innerHeight*0.35);
+document.getElementById("sampleCanvas").width = (window.innerWidth * 0.50);
+document.getElementById("sampleCanvas").height = (window.innerHeight * 0.35);
+document.getElementById("populationCanvas").width = (window.innerWidth * 0.50);
+document.getElementById("populationCanvas").height = (window.innerHeight * 0.35);
 
 let width = document.getElementById("sampleCanvas").width;
 let height = document.getElementById("sampleCanvas").height;
+
+//resize canvas and update variables when window resizes
+function resizeCanvas() {
+    document.getElementById("sampleCanvas").width = (window.innerWidth * 0.50);
+    document.getElementById("sampleCanvas").height = (window.innerHeight * 0.35);
+    document.getElementById("populationCanvas").width = (window.innerWidth * 0.50);
+    document.getElementById("populationCanvas").height = (window.innerHeight * 0.35);
+
+    width = document.getElementById("sampleCanvas").width;
+    height = document.getElementById("sampleCanvas").height;
+
+    //redisplay pop graph
+    for (let i = 0; i < populationheights.length; i++) {
+        rect(i * (width / 10), height, width / 10, -populationheights[i], "#000000", "populationCanvas");
+    }
+}
+
+window.addEventListener("resize", resizeCanvas);
 
 //setup
 document.getElementById("button").onclick = function () {
@@ -73,7 +91,7 @@ for (let i = 0; i < population.length; i++) {
 
 //display graph
 for (let i = 0; i < populationheights.length; i++) {
-    rect(i * (width/10), height, width/10, -populationheights[i], "#000000", "populationCanvas");
+    rect(i * (width / 10), height, width / 10, -populationheights[i], "#000000", "populationCanvas");
 }
 
 function loop() {
@@ -153,7 +171,7 @@ function CentralLimitTheorem() {
     for (let i = 0; i < heights.length; i++) {
         total += heights[i];
 
-        //get max
+        //get max for mapping later
         if (heights[i] > max) {
             max = heights[i];
         }
@@ -161,14 +179,15 @@ function CentralLimitTheorem() {
 
     //graph distribution
     for (let i = 0; i < heights.length; i++) {
-        //get percentage
-        let barheight = (heights[i] / total) * height * 3;
-        rect(i * (width/10), height, width/10, -barheight, "#000000", "sampleCanvas");
+        //map barheight to canvas height
+        let barheight = heights[i];
+        barheight = map(barheight, 0, max + 20, height - 20);
+        rect(i * (width / 10), height, width / 10, -barheight, "#000000", "sampleCanvas");
     }
 }
 
-function map(x, current_min, current_max, new_min, new_max) {
-    return ((x-current_min)/(current_max-current_min))*new_max;
+function map(x, current_min, current_max, new_max) {
+    return ((x - current_min) / (current_max - current_min)) * new_max;
 }
 
 function rect(x, y, w, h, color, canvas) {
@@ -177,7 +196,7 @@ function rect(x, y, w, h, color, canvas) {
     ctx.beginPath();
     ctx.fillStyle = color;
     ctx.fillRect(x, y, w, h);
-    ctx.strokeStyle="#FFF";
+    ctx.strokeStyle = "#FFF";
     ctx.rect(x, y, w, h);
     ctx.stroke();
 }
