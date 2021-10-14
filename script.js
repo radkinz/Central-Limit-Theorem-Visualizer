@@ -4,12 +4,15 @@ class SampleBall {
         this.sampleNum = sample;
     }
 
-    display(x, y, canvas) {
+    show(x, y, canvas) {
         var c = document.getElementById(canvas);
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.arc(x, y, 20, 0, 2 * Math.PI);
-        ctx.stroke();
+        ctx.arc(x, y, map(this.sampleNum, 0, 100, 20), 0, 2 * Math.PI);
+        ctx.fillStyle = '#2793ef';
+        ctx.fill();
+
+        console.log(canvas);
     }
 }
 
@@ -24,8 +27,15 @@ class SampleList {
         for (let i = 0; i < this.samplelist.length; i++) {
             this.ballList.push(new SampleBall(this.samplelist[i]));
         }
+    }
 
-        console.log(this.ballList)
+    display() {
+        //clear background
+        rect(0, 0, 500, 500, "white", "sampleGraphic");
+
+        for (let i = 0; i < this.ballList.length; i++) {
+            this.ballList[i].show((i*45)+45, 80, "sampleGraphic");
+        }
     }
 }
 
@@ -151,6 +161,7 @@ function CentralLimitTheorem() {
     //create sample list
     let SampleBallList = new SampleList(nums);
     SampleBallList.initilize();
+    SampleBallList.display();
 
     //declare bar array
     if (heights == null) {
