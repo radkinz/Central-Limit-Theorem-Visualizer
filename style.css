@@ -1,32 +1,22 @@
 html {
     margin: 0;
     padding: 0;
-    height: 100%;
-}
-
-body {
-    min-height: 100%;
-    background-color: blueviolet;
 }
 
 #sidebar {
-    float: left;
     padding: 20px;
     height: 100%;
-    background-color: crimson;
 }
 
 #main {
-    float: left;
-    background-color: aquamarine;
-    width: 80%;
-    min-height: 150%;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 #container {
     width: 100%;
-    min-height: 100%;
-    background-color: crimson;
+    display: flex;
+    justify-content: space-between;
 }
 
 canvas {

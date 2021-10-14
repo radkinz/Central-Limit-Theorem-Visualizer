@@ -1,3 +1,34 @@
+//class to handle sample graphic
+class SampleBall {
+    constructor(sample) {
+        this.sampleNum = sample;
+    }
+
+    display(x, y, canvas) {
+        var c = document.getElementById(canvas);
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(x, y, 20, 0, 2 * Math.PI);
+        ctx.stroke();
+    }
+}
+
+//class to create sample list
+class SampleList {
+    constructor(sampleListt) {
+        this.samplelist = sampleListt;
+        this.ballList = [];
+    }
+
+    initilize() {
+        for (let i = 0; i < this.samplelist.length; i++) {
+            this.ballList.push(new SampleBall(this.samplelist[i]));
+        }
+
+        console.log(this.ballList)
+    }
+}
+
 //declare global variables
 let button;
 let heights;
@@ -47,7 +78,6 @@ for (let i = 0; i < 1000; i++) {
 }
 
 //graph population
-
 //setup population heights
 populationheights = []
 
@@ -117,6 +147,10 @@ function CentralLimitTheorem() {
         let index = random(0, 100)
         nums.push(population[index])
     }
+
+    //create sample list
+    let SampleBallList = new SampleList(nums);
+    SampleBallList.initilize();
 
     //declare bar array
     if (heights == null) {
