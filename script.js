@@ -1,9 +1,9 @@
 //class to handle sample graphic
 class SampleBall {
-    constructor(sample, index) {
+    constructor(sample) {
         this.sampleNum = sample;
         this.y = 0;
-        this.x = (this.getXpos() * (width / 10)) + ((width / 10)/2);
+        this.x = (this.getXpos() * (SampleCanvasWidth / 10)) + ((SampleCanvasWidth / 10)/2);
     }
 
     getXpos() {
@@ -68,7 +68,7 @@ class SampleList {
 
     display() {
         for (let i = 0; i < this.ballList.length; i++) {
-            this.ballList[i].show("sampleGraphic");
+            this.ballList[i].show("sampleCanvas");
         }
     }
 
@@ -76,6 +76,16 @@ class SampleList {
         for (let i = 0; i < this.ballList.length; i++) {
             this.ballList[i].move();
         }
+    }
+
+    checkBoundary() {
+        for (let i = 0; i < this.ballList.length; i++) {
+            if (this.ballList[i].y > (SampleCanvasHeight/2)) {
+                return true;
+            }
+        }
+
+        return false
     }
 }
 
@@ -86,14 +96,14 @@ let run = false;
 
 //set canvas element to porportion of browser height
 document.getElementById("sampleCanvas").width = (window.innerWidth * 0.50);
-document.getElementById("sampleCanvas").height = (window.innerHeight * 0.35);
+document.getElementById("sampleCanvas").height = (window.innerHeight * 0.55);
 document.getElementById("populationCanvas").width = (window.innerWidth * 0.50);
-document.getElementById("populationCanvas").height = (window.innerHeight * 0.35);
-document.getElementById("sampleGraphic").width = (window.innerWidth * 0.50);
-document.getElementById("sampleGraphic").height = (window.innerHeight * 0.35);
+document.getElementById("populationCanvas").height = (window.innerHeight * 0.25);
 
-let width = document.getElementById("sampleCanvas").width;
-let height = document.getElementById("sampleCanvas").height;
+let SampleCanvasWidth = document.getElementById("sampleCanvas").width;
+let SampleCanvasHeight = document.getElementById("sampleCanvas").height;
+let PopulationCanvasWidth = document.getElementById("populationCanvas").width;
+let PopulationCanvasHeight = document.getElementById("populationCanvas").height;
 
 //resize canvas and update variables when window resizes
 function resizeCanvas() {
@@ -102,12 +112,14 @@ function resizeCanvas() {
     document.getElementById("populationCanvas").width = (window.innerWidth * 0.50);
     document.getElementById("populationCanvas").height = (window.innerHeight * 0.35);
 
-    width = document.getElementById("sampleCanvas").width;
-    height = document.getElementById("sampleCanvas").height;
+    SampleCanvasWidth = document.getElementById("sampleCanvas").width;
+    SampleCanvasHeight = document.getElementById("sampleCanvas").height;
+    PopulationCanvasWidth = document.getElementById("populationCanvas").width;
+    PopulationCanvasHeight = document.getElementById("populationCanvas").height;
 
     //redisplay pop graph
     for (let i = 0; i < populationheights.length; i++) {
-        rect(i * (width / 10), height, width / 10, -populationheights[i], "#000000", "populationCanvas");
+        rect(i * (PopulationCanvasWidth / 10), PopulationCanvasHeight, PopulationCanvasWidth / 10, -populationheights[i], "#000000", "populationCanvas");
     }
 }
 
@@ -173,7 +185,7 @@ for (let i = 0; i < population.length; i++) {
 
 //display graph
 for (let i = 0; i < populationheights.length; i++) {
-    rect(i * (width / 10), height, width / 10, -populationheights[i], "#000000", "populationCanvas");
+    rect(i * (PopulationCanvasWidth / 10), PopulationCanvasHeight, PopulationCanvasWidth / 10, -populationheights[i], "#000000", "populationCanvas");
 }
 
 function loop() {
@@ -191,7 +203,7 @@ loop();
 let BallList = [];
 function CentralLimitTheorem() {
     //clear background
-    rect(0, 0, width, height, "#FFFFFF", "sampleCanvas");
+    rect(0, 0, SampleCanvasWidth, SampleCanvasHeight, "#FFFFFF", "sampleCanvas");
 
     //get random samples from population
     let nums = [];
@@ -203,7 +215,6 @@ function CentralLimitTheorem() {
 
     //create sample list
     //clear background of sample canvas
-    rect(0, 0, width, height, "white", "sampleGraphic");
     let SampleBallList = new SampleList(nums);
     SampleBallList.initilize();
 
@@ -213,6 +224,11 @@ function CentralLimitTheorem() {
     //update and display all balls
     for (let i = 0; i < BallList.length; i++) {
         BallList[i].update();
+
+        //check if out of bounds 
+        if (BallList[i].checkBoundary()) {
+            BallList.splice(i, 1);
+        }
         BallList[i].display();
     }
 
@@ -279,8 +295,8 @@ function CentralLimitTheorem() {
     for (let i = 0; i < heights.length; i++) {
         //map barheight to canvas height
         let barheight = heights[i];
-        barheight = map(barheight, 0, max + 20, height - 20);
-        rect(i * (width / 10), height, width / 10, -barheight, "#000000", "sampleCanvas");
+        barheight = map(barheight, 0, max + 20, SampleCanvasHeight/2);
+        rect(i * (SampleCanvasWidth/ 10), SampleCanvasHeight, SampleCanvasWidth / 10, -barheight, "#000000", "sampleCanvas");
     }
 }
 
