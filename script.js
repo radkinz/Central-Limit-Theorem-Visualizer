@@ -1,18 +1,55 @@
 //class to handle sample graphic
 class SampleBall {
-    constructor(sample) {
+    constructor(sample, index) {
         this.sampleNum = sample;
+        this.y = 0;
+        this.x = (this.getXpos() * (width / 10)) + ((width / 10)/2);
     }
 
-    show(x, y, canvas) {
+    getXpos() {
+        if (this.sampleNum < 10) {
+            return 0;
+        }
+        if (this.sampleNum < 20 && this.sampleNum >= 10) {
+            return 1;
+        }
+        if (this.sampleNum < 30 && this.sampleNum >= 20) {
+            return 2;
+        }
+        if (this.sampleNum < 40 && this.sampleNum >= 30) {
+            return 3;
+        }
+        if (this.sampleNum < 50 && this.sampleNum >= 40) {
+            return 4;
+        }
+        if (this.sampleNum < 60 && this.sampleNum >= 50) {
+            return 5;
+        }
+        if (this.sampleNum < 70 && this.sampleNum >= 60) {
+            return 6;
+        }
+        if (this.sampleNum < 80 && this.sampleNum >= 70) {
+            return 7;
+        }
+        if (this.sampleNum < 90 && this.sampleNum >= 80) {
+            return 8;
+        }
+        if (this.sampleNum >= 90) {
+            return 9;
+        }
+    }
+
+    show(canvas) {
         var c = document.getElementById(canvas);
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.arc(x, y, map(this.sampleNum, 0, 100, 20), 0, 2 * Math.PI);
+        ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
         ctx.fillStyle = '#2793ef';
         ctx.fill();
+    }
 
-        console.log(canvas);
+    move() {
+        this.y += 6;
     }
 }
 
@@ -30,11 +67,14 @@ class SampleList {
     }
 
     display() {
-        //clear background
-        rect(0, 0, 500, 500, "white", "sampleGraphic");
-
         for (let i = 0; i < this.ballList.length; i++) {
-            this.ballList[i].show((i*45)+45, 80, "sampleGraphic");
+            this.ballList[i].show("sampleGraphic");
+        }
+    }
+
+    update() {
+        for (let i = 0; i < this.ballList.length; i++) {
+            this.ballList[i].move();
         }
     }
 }
@@ -49,6 +89,8 @@ document.getElementById("sampleCanvas").width = (window.innerWidth * 0.50);
 document.getElementById("sampleCanvas").height = (window.innerHeight * 0.35);
 document.getElementById("populationCanvas").width = (window.innerWidth * 0.50);
 document.getElementById("populationCanvas").height = (window.innerHeight * 0.35);
+document.getElementById("sampleGraphic").width = (window.innerWidth * 0.50);
+document.getElementById("sampleGraphic").height = (window.innerHeight * 0.35);
 
 let width = document.getElementById("sampleCanvas").width;
 let height = document.getElementById("sampleCanvas").height;
@@ -146,6 +188,7 @@ function loop() {
 
 loop();
 
+let BallList = [];
 function CentralLimitTheorem() {
     //clear background
     rect(0, 0, width, height, "#FFFFFF", "sampleCanvas");
@@ -159,9 +202,19 @@ function CentralLimitTheorem() {
     }
 
     //create sample list
+    //clear background of sample canvas
+    rect(0, 0, width, height, "white", "sampleGraphic");
     let SampleBallList = new SampleList(nums);
     SampleBallList.initilize();
-    SampleBallList.display();
+
+    //add sampleballlist to a list to keep track and update sample graphic
+    BallList.push(SampleBallList);
+
+    //update and display all balls
+    for (let i = 0; i < BallList.length; i++) {
+        BallList[i].update();
+        BallList[i].display();
+    }
 
     //declare bar array
     if (heights == null) {
@@ -210,9 +263,9 @@ function CentralLimitTheorem() {
         heights[9] += 1;
     }
 
-    //get total 
-    let total = 0;
+    //get total
     let max = 0;
+    let total;
     for (let i = 0; i < heights.length; i++) {
         total += heights[i];
 
