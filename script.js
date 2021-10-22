@@ -81,11 +81,24 @@ class SampleList {
     checkBoundary() {
         for (let i = 0; i < this.ballList.length; i++) {
             if (this.ballList[i].y > (SampleCanvasHeight/2)) {
-                return true;
+                return true
             }
         }
 
         return false
+    }
+
+    averageList() {
+        let mean = 0;
+        for (let i = 0; i < this.ballList.length; i++) {
+            mean += this.ballList[i].sampleNum;
+        }
+        mean = mean/this.ballList.length;
+        let averageBall = new SampleBall(mean);
+
+        //empty list and replace with just the sample
+        this.ballList = [];
+        this.ballList.push(averageBall);
     }
 }
 
@@ -226,9 +239,10 @@ function CentralLimitTheorem() {
         BallList[i].update();
 
         //check if out of bounds 
-        if (BallList[i].checkBoundary()) {
-            BallList.splice(i, 1);
+        if (BallList[i].checkBoundary() && BallList[i].ballList.length > 1) {
+            BallList[i].averageList();
         }
+        
         BallList[i].display();
     }
 
