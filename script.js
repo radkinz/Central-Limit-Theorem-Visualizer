@@ -1,9 +1,10 @@
 //class to handle sample graphic
 class SampleBall {
-    constructor(sample) {
+    constructor(sample, c) {
         this.sampleNum = sample;
         this.y = 0;
         this.x = (this.getXpos() * (SampleCanvasWidth / 10)) + ((SampleCanvasWidth / 10)/2);
+        this.color = c;
     }
 
     getXpos() {
@@ -44,7 +45,7 @@ class SampleBall {
         var ctx = c.getContext("2d");
         ctx.beginPath();
         ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
-        ctx.fillStyle = '#2793ef';
+        ctx.fillStyle = this.color;
         ctx.fill();
     }
 
@@ -62,7 +63,7 @@ class SampleList {
 
     initilize() {
         for (let i = 0; i < this.samplelist.length; i++) {
-            this.ballList.push(new SampleBall(this.samplelist[i]));
+            this.ballList.push(new SampleBall(this.samplelist[i], '#2793ef'));
         }
     }
 
@@ -78,9 +79,19 @@ class SampleList {
         }
     }
 
-    checkBoundary() {
+    checkMidBoundary() {
         for (let i = 0; i < this.ballList.length; i++) {
-            if (this.ballList[i].y > (SampleCanvasHeight/2)) {
+            if (this.ballList[i].y > (SampleCanvasHeight/2.5)) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    checkEndBoundary() {
+        for (let i = 0; i < this.ballList.length; i++) {
+            if (this.ballList[i].y > SampleCanvasHeight) {
                 return true
             }
         }
@@ -94,7 +105,8 @@ class SampleList {
             mean += this.ballList[i].sampleNum;
         }
         mean = mean/this.ballList.length;
-        let averageBall = new SampleBall(mean);
+        let averageBall = new SampleBall(mean, "#FF0000");
+        averageBall.y = (SampleCanvasHeight/2.5);
 
         //empty list and replace with just the sample
         this.ballList = [];
@@ -238,9 +250,14 @@ function CentralLimitTheorem() {
     for (let i = 0; i < BallList.length; i++) {
         BallList[i].update();
 
-        //check if out of bounds 
-        if (BallList[i].checkBoundary() && BallList[i].ballList.length > 1) {
+        //check if need to shift to mean
+        if (BallList[i].checkMidBoundary() && BallList[i].ballList.length > 1) {
             BallList[i].averageList();
+        }
+
+        //check if out of bounds
+        if (BallList[i].checkEndBoundary() && BallList[i].ballList.length == 1) {
+            BallList.splice(i, 1);
         }
         
         BallList[i].display();
