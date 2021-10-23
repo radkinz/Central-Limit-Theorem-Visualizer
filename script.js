@@ -58,14 +58,14 @@ class SampleBall {
     movetoMean(location) {
         if (!this.dead) {
             if (this.x < location) {
-                this.x += 12;
+                this.x += 20;
             } else {
-                this.x -= 12;
+                this.x -= 20;
             }
 
             //move to location if distance is close enough
             console.log(Math.abs(this.x - location));
-            if (Math.abs(this.x - location) < 12) {
+            if (Math.abs(this.x - location) < 20) {
                 this.x = location;
                 this.dead = true;
             }
@@ -93,9 +93,10 @@ class SampleList {
     display() {
         if (this.displayAvg) {
             this.averageSample.show("sampleCanvas");
-        }
-        for (let i = 0; i < this.ballList.length; i++) {
-            this.ballList[i].show("sampleCanvas");
+        } else {
+            for (let i = 0; i < this.ballList.length; i++) {
+                this.ballList[i].show("sampleCanvas");
+            }
         }
     }
 
@@ -137,7 +138,6 @@ class SampleList {
                 return true
             }
         }
-
         return false
     }
 
@@ -147,7 +147,6 @@ class SampleList {
                 return true
             }
         }
-
         return false
     }
 
