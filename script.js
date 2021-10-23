@@ -48,7 +48,6 @@ class SampleBall {
         ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
         ctx.fillStyle = this.color;
         ctx.fill();
-
     }
 
     move() {
@@ -64,7 +63,6 @@ class SampleBall {
             }
 
             //move to location if distance is close enough
-            console.log(Math.abs(this.x - location));
             if (Math.abs(this.x - location) < 20) {
                 this.x = location;
                 this.dead = true;
@@ -142,12 +140,16 @@ class SampleList {
     }
 
     checkEndBoundary() {
-        for (let i = 0; i < this.ballList.length; i++) {
-            if (this.ballList[i].y > SampleCanvasHeight) {
-                return true
-            }
+        if (!this.averageSample) {
+            return false;
         }
-        return false
+
+        if (this.averageSample.y > SampleCanvasHeight) {
+            addtograph(this.averageSample.sampleNum);
+            return true;
+        }
+
+        return false;
     }
 
     averageList() {
@@ -325,6 +327,11 @@ function newSample() {
     //update and display all balls
     updateSamples();
 
+    //graph distribution
+    updateGraph();
+}
+
+function addtograph(mean) {
     //declare bar array
     if (heights == null) {
         heights = [];
@@ -332,13 +339,6 @@ function newSample() {
             heights.push(0);
         }
     }
-
-    //get mean
-    let mean = 0;
-    for (let i = 0; i < nums.length; i++) {
-        mean += nums[i];
-    }
-    mean = mean / nums.length;
 
     //get freq
     if (mean < 10) {
@@ -371,24 +371,21 @@ function newSample() {
     if (mean >= 90) {
         heights[9] += 1;
     }
-
-    //graph distribution
-    updateGraph();
 }
 
 function updateGraph() {
-    //get total
-    let max = 0;
-    let total;
-    for (let i = 0; i < heights.length; i++) {
-        total += heights[i];
+    if (!heights) {
+        return;
+    }
 
+    //get max
+    let max = 0;
+    for (let i = 0; i < heights.length; i++) {
         //get max for mapping later
         if (heights[i] > max) {
             max = heights[i];
         }
     }
-
 
     //graph distribution
     for (let i = 0; i < heights.length; i++) {
@@ -408,7 +405,7 @@ function updateSamples() {
         }
 
         //check if out of bounds
-        if (BallList[i].checkEndBoundary() && BallList[i].averaging) {
+        if (BallList[i].checkEndBoundary()) {
             BallList.splice(i, 1);
         }
         BallList[i].update();
