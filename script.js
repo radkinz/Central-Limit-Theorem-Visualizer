@@ -42,31 +42,30 @@ class SampleBall {
     }
 
     show(canvas) {
-        if (!this.dead) {
-            var c = document.getElementById(canvas);
-            var ctx = c.getContext("2d");
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
-            ctx.fillStyle = this.color;
-            ctx.fill();
-        }
+        var c = document.getElementById(canvas);
+        var ctx = c.getContext("2d");
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+
     }
 
     move() {
-        this.y += 6;
+        this.y += 20;
     }
 
     movetoMean(location) {
         if (!this.dead) {
             if (this.x < location) {
-                this.x += 25;
+                this.x += 12;
             } else {
-                this.x -= 25;
+                this.x -= 12;
             }
 
             //move to location if distance is close enough
             console.log(Math.abs(this.x - location));
-            if (Math.abs(this.x - location) < 25) {
+            if (Math.abs(this.x - location) < 12) {
                 this.x = location;
                 this.dead = true;
             }
@@ -267,20 +266,45 @@ for (let i = 0; i < populationheights.length; i++) {
     rect(i * (PopulationCanvasWidth / 10), PopulationCanvasHeight, PopulationCanvasWidth / 10, -populationheights[i], "#000000", "populationCanvas");
 }
 
-function loop() {
+let framesPerSecond = 30;
+let interval;
 
-    window.requestAnimationFrame(loop);
+function animate() {
+    setTimeout(function () {
+        requestAnimationFrame(animate);
 
-    if (run) {
-        CentralLimitTheorem();
-    }
+        // animating/drawing code goes here
+        if (run) {
+            CentralLimitTheorem();
+            if (!interval) {
+                interval = setInterval(newSample, 1000);
+            }
+        } else {
+            clearInterval(interval);
+            interval = undefined;
+        }
 
+
+    }, 1000 / framesPerSecond);
 }
 
-loop();
+animate();
 
 let BallList = [];
+
 function CentralLimitTheorem() {
+    //clear background
+    rect(0, 0, SampleCanvasWidth, SampleCanvasHeight, "#FFFFFF", "sampleCanvas");
+
+    if (BallList.length == 0) {
+        newSample();
+    }
+
+    updateSamples();
+    updateGraph();
+}
+
+function newSample() {
     //clear background
     rect(0, 0, SampleCanvasWidth, SampleCanvasHeight, "#FFFFFF", "sampleCanvas");
 
@@ -293,7 +317,6 @@ function CentralLimitTheorem() {
     }
 
     //create sample list
-    //clear background of sample canvas
     let SampleBallList = new SampleList(nums);
     SampleBallList.initilize();
 
@@ -301,19 +324,7 @@ function CentralLimitTheorem() {
     BallList.push(SampleBallList);
 
     //update and display all balls
-    for (let i = 0; i < BallList.length; i++) {
-        //check if need to shift to mean
-        if (BallList[i].checkMidBoundary() && !BallList[i].averaging) {
-            BallList[i].averageList();
-        }
-
-        //check if out of bounds
-        if (BallList[i].checkEndBoundary() && BallList[i].averaging) {
-            BallList.splice(i, 1);
-        }
-        BallList[i].update();
-        BallList[i].display();
-    }
+    updateSamples();
 
     //declare bar array
     if (heights == null) {
@@ -362,6 +373,11 @@ function CentralLimitTheorem() {
         heights[9] += 1;
     }
 
+    //graph distribution
+    updateGraph();
+}
+
+function updateGraph() {
     //get total
     let max = 0;
     let total;
@@ -374,12 +390,30 @@ function CentralLimitTheorem() {
         }
     }
 
+
     //graph distribution
     for (let i = 0; i < heights.length; i++) {
         //map barheight to canvas height
         let barheight = heights[i];
         barheight = map(barheight, 0, max + 20, SampleCanvasHeight / 2);
         rect(i * (SampleCanvasWidth / 10), SampleCanvasHeight, SampleCanvasWidth / 10, -barheight, "#000000", "sampleCanvas");
+    }
+}
+
+function updateSamples() {
+    //update and display all balls
+    for (let i = 0; i < BallList.length; i++) {
+        //check if need to shift to mean
+        if (BallList[i].checkMidBoundary() && !BallList[i].averaging) {
+            BallList[i].averageList();
+        }
+
+        //check if out of bounds
+        if (BallList[i].checkEndBoundary() && BallList[i].averaging) {
+            BallList.splice(i, 1);
+        }
+        BallList[i].update();
+        BallList[i].display();
     }
 }
 
