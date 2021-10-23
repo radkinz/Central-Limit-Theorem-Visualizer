@@ -3,8 +3,9 @@ class SampleBall {
     constructor(sample, c) {
         this.sampleNum = sample;
         this.y = 0;
-        this.x = (this.getXpos() * (SampleCanvasWidth / 10)) + ((SampleCanvasWidth / 10)/2);
+        this.x = (this.getXpos() * (SampleCanvasWidth / 10)) + ((SampleCanvasWidth / 10) / 2);
         this.color = c;
+        this.dead = false;
     }
 
     getXpos() {
@@ -41,16 +42,35 @@ class SampleBall {
     }
 
     show(canvas) {
-        var c = document.getElementById(canvas);
-        var ctx = c.getContext("2d");
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
-        ctx.fillStyle = this.color;
-        ctx.fill();
+        if (!this.dead) {
+            var c = document.getElementById(canvas);
+            var ctx = c.getContext("2d");
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
     }
 
     move() {
         this.y += 6;
+    }
+
+    movetoMean(location) {
+        if (!this.dead) {
+            if (this.x < location) {
+                this.x += 25;
+            } else {
+                this.x -= 25;
+            }
+
+            //move to location if distance is close enough
+            console.log(Math.abs(this.x - location));
+            if (Math.abs(this.x - location) < 25) {
+                this.x = location;
+                this.dead = true;
+            }
+        }
     }
 }
 
@@ -59,6 +79,10 @@ class SampleList {
     constructor(sampleListt) {
         this.samplelist = sampleListt;
         this.ballList = [];
+        this.averaging = false;
+        this.leftover = [];
+        this.averageSample;
+        this.displayAvg = false;
     }
 
     initilize() {
@@ -68,20 +92,49 @@ class SampleList {
     }
 
     display() {
+        if (this.displayAvg) {
+            this.averageSample.show("sampleCanvas");
+        }
         for (let i = 0; i < this.ballList.length; i++) {
             this.ballList[i].show("sampleCanvas");
         }
     }
 
     update() {
-        for (let i = 0; i < this.ballList.length; i++) {
-            this.ballList[i].move();
+        if (this.averaging) {
+            for (let i = 0; i < this.ballList.length; i++) {
+                this.ballList[i].movetoMean(this.averageSample.x + 5);
+            }
+
+            //check if time to unleash mean
+            if (!this.displayAvg) {
+                let temp = true;
+                for (let i = 0; i < this.ballList.length; i++) {
+                    if (!this.ballList[i].dead) {
+                        temp = false;
+                        break;
+                    }
+                }
+
+                if (temp) {
+                    this.displayAvg = true;
+                }
+            }
+
+            //show mean if time
+            if (this.displayAvg) {
+                this.averageSample.move();
+            }
+        } else {
+            for (let i = 0; i < this.ballList.length; i++) {
+                this.ballList[i].move();
+            }
         }
     }
 
     checkMidBoundary() {
         for (let i = 0; i < this.ballList.length; i++) {
-            if (this.ballList[i].y > (SampleCanvasHeight/2.5)) {
+            if (this.ballList[i].y > (SampleCanvasHeight / 2.5)) {
                 return true
             }
         }
@@ -104,13 +157,14 @@ class SampleList {
         for (let i = 0; i < this.ballList.length; i++) {
             mean += this.ballList[i].sampleNum;
         }
-        mean = mean/this.ballList.length;
+        mean = mean / this.ballList.length;
         let averageBall = new SampleBall(mean, "#FF0000");
-        averageBall.y = (SampleCanvasHeight/2.5);
+        averageBall.y = (SampleCanvasHeight / 2.5);
 
         //empty list and replace with just the sample
-        this.ballList = [];
-        this.ballList.push(averageBall);
+        this.leftover = this.ballList;
+        this.averageSample = averageBall;
+        this.averaging = true;
     }
 }
 
@@ -248,18 +302,16 @@ function CentralLimitTheorem() {
 
     //update and display all balls
     for (let i = 0; i < BallList.length; i++) {
-        BallList[i].update();
-
         //check if need to shift to mean
-        if (BallList[i].checkMidBoundary() && BallList[i].ballList.length > 1) {
+        if (BallList[i].checkMidBoundary() && !BallList[i].averaging) {
             BallList[i].averageList();
         }
 
         //check if out of bounds
-        if (BallList[i].checkEndBoundary() && BallList[i].ballList.length == 1) {
+        if (BallList[i].checkEndBoundary() && BallList[i].averaging) {
             BallList.splice(i, 1);
         }
-        
+        BallList[i].update();
         BallList[i].display();
     }
 
@@ -326,8 +378,8 @@ function CentralLimitTheorem() {
     for (let i = 0; i < heights.length; i++) {
         //map barheight to canvas height
         let barheight = heights[i];
-        barheight = map(barheight, 0, max + 20, SampleCanvasHeight/2);
-        rect(i * (SampleCanvasWidth/ 10), SampleCanvasHeight, SampleCanvasWidth / 10, -barheight, "#000000", "sampleCanvas");
+        barheight = map(barheight, 0, max + 20, SampleCanvasHeight / 2);
+        rect(i * (SampleCanvasWidth / 10), SampleCanvasHeight, SampleCanvasWidth / 10, -barheight, "#000000", "sampleCanvas");
     }
 }
 
