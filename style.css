@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+
 html {
     margin: 0;
     padding: 0;
@@ -5,11 +7,14 @@ html {
 
 h1 {
     text-align: center;
+    font-family: 'Fjalla One', sans-serif;
 }
 
 #sidebar {
     padding: 20px;
-    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
 }
 
 #main {
@@ -24,6 +29,7 @@ h1 {
 }
 
 #populationCanvas, #sampleCanvas {
+    font-family: 'Fjalla One', sans-serif;
     border-bottom: 2px solid black;
 }
 
@@ -31,4 +37,20 @@ p {
     font-family: Arial;
     margin-top: -5px;
     font-size: 18px;
+}
+
+#button {
+    background-color: rgba(255, 243, 134, 0.89);
+    border: none;
+    font-family: Arial;
+    font-weight: 800;
+    border-radius: 5px;
+    font-size: 20px;
+    height: 40px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#button:hover {
+    background-color: rgba(255, 237, 72, 0.89);
 }
