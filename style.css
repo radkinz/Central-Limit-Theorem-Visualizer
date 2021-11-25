@@ -3,6 +3,7 @@
 html {
     margin: 0;
     padding: 0;
+    font-family: 'Fjalla One', sans-serif;
 }
 
 h1 {
@@ -14,7 +15,8 @@ h1 {
     padding: 20px;
     width: 50%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    text-align: center;
 }
 
 #main {
@@ -49,6 +51,12 @@ p {
     height: 40px;
     padding-right: 10px;
     padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+input {
+    height: 20px;
+    margin-top: 10px;
 }
 
 #button:hover {

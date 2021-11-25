@@ -1,35 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="script.js" defer></script>
 
     <title>Central Limit Theorem</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <h1>The Central Limit Theorem</h1>
     <div id="container">
-        <div id="sidebar">
-            <button id="button">Start Sampling</button>
+      <div id="sidebar">
+        <div>
+          <button id="button">Start Sampling</button>
         </div>
+        <div>
+          Sample Size: <input id="sampleSize" type="number" min="1" max="100" onchange="newSampleSize()"/>
+        </div>
+      </div>
 
-        <div id="main">
-            <div>
-                <canvas id="populationCanvas"></canvas>
-            </div>
-            <div>
-                <canvas id="sampleCanvas"></canvas>
-            </div>
-            <p>Sample</p>
+      <div id="main">
+        <div>
+          <canvas id="populationCanvas"></canvas>
         </div>
+        <div>
+          <canvas id="sampleCanvas"></canvas>
+        </div>
+        <p>Sample</p>
+      </div>
     </div>
-
-</body>
-
+  </body>
 </html>
