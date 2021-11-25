@@ -228,7 +228,7 @@ for (let i = 0; i < 1000; i++) {
 
 //graph population
 //setup population heights
-populationheights = []
+populationheights = [];
 
 for (let i = 0; i < 10; i++) {
     populationheights.push(0)
@@ -287,7 +287,6 @@ context.font = "18px Arial";
 context.fillText("Average", 0, SampleCanvasHeight/2.5 + 40);
 context.fillText("Population", 0, 18);
 
-
 function animate() {
     setTimeout(function () {
         requestAnimationFrame(animate);
@@ -309,6 +308,7 @@ function animate() {
 animate();
 
 let BallList = [];
+let sampleSize = 3;
 
 function CentralLimitTheorem() {
     //clear background
@@ -327,7 +327,6 @@ function CentralLimitTheorem() {
     //add population text
     context.fillText("Population", 0, 18);
 
-
     if (BallList.length == 0) {
         newSample();
     }
@@ -342,7 +341,7 @@ function newSample() {
 
     //get random samples from population
     let nums = [];
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < sampleSize; i++) {
         //get random index from population arr
         let index = random(0, 100)
         nums.push(population[index])
@@ -463,4 +462,13 @@ function random(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min) + min);
+}
+
+function newSampleSize() {
+    //change sample size
+    sampleSize = document.getElementById("sampleSize").value;
+
+    //restart entire CLT
+    BallList = [];
+    heights = null;
 }
