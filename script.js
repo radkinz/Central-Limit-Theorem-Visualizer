@@ -1,3 +1,9 @@
+//define color palette
+let avgballcolor = "#9381FF";
+let sampleballcolor = "#FFD8BE";
+let samplebarcolor = "#B8B8FF";
+let populationbarcolor ="#FFD6AD";
+
 //class to handle sample graphic
 class SampleBall {
     constructor(sample, c) {
@@ -45,7 +51,7 @@ class SampleBall {
         var c = document.getElementById(canvas);
         var ctx = c.getContext("2d");
         ctx.beginPath();
-        ctx.arc(this.x, this.y, 5, 0, 2 * Math.PI);
+        ctx.arc(this.x, this.y, 7, 0, 2 * Math.PI);
         ctx.fillStyle = this.color;
         ctx.fill();
     }
@@ -84,7 +90,7 @@ class SampleList {
 
     initilize() {
         for (let i = 0; i < this.samplelist.length; i++) {
-            this.ballList.push(new SampleBall(this.samplelist[i], '#2793ef'));
+            this.ballList.push(new SampleBall(this.samplelist[i], sampleballcolor));
         }
     }
 
@@ -158,7 +164,7 @@ class SampleList {
             mean += this.ballList[i].sampleNum;
         }
         mean = mean / this.ballList.length;
-        let averageBall = new SampleBall(mean, "#FF0000");
+        let averageBall = new SampleBall(mean, avgballcolor);
         averageBall.y = (SampleCanvasHeight / 2.5);
 
         //empty list and replace with just the sample
@@ -264,11 +270,23 @@ for (let i = 0; i < population.length; i++) {
 
 //display graph
 for (let i = 0; i < populationheights.length; i++) {
-    rect(i * (PopulationCanvasWidth / 10), PopulationCanvasHeight, PopulationCanvasWidth / 10, -populationheights[i], "#000000", "populationCanvas");
+    rect(i * (PopulationCanvasWidth / 10), PopulationCanvasHeight, PopulationCanvasWidth / 10, -populationheights[i], populationbarcolor, "populationCanvas");
 }
 
-let framesPerSecond = 30;
+let framesPerSecond = 90;
 let interval;
+
+//always avg display line
+rect(0, SampleCanvasHeight/2.5 + 23, SampleCanvasWidth, 2, "#000000", "sampleCanvas");
+
+//add avg text
+var canvas = document.getElementById("sampleCanvas");
+var context = canvas.getContext("2d");
+context.fillStyle = "black";
+context.font = "18px Arial";
+context.fillText("Average", 0, SampleCanvasHeight/2.5 + 40);
+context.fillText("Population", 0, 18);
+
 
 function animate() {
     setTimeout(function () {
@@ -278,13 +296,12 @@ function animate() {
         if (run) {
             CentralLimitTheorem();
             if (!interval) {
-                interval = setInterval(newSample, 1000);
+                interval = setInterval(newSample, 300);
             }
         } else {
             clearInterval(interval);
             interval = undefined;
         }
-
 
     }, 1000 / framesPerSecond);
 }
@@ -296,6 +313,20 @@ let BallList = [];
 function CentralLimitTheorem() {
     //clear background
     rect(0, 0, SampleCanvasWidth, SampleCanvasHeight, "#FFFFFF", "sampleCanvas");
+
+    //always display avg line
+    rect(0, SampleCanvasHeight/2.5 + 23, SampleCanvasWidth, 2, "#000000", "sampleCanvas");
+
+    //add avg text
+    var canvas = document.getElementById("sampleCanvas");
+    var context = canvas.getContext("2d");
+    context.fillStyle = "black";
+    context.font = "18px Arial";
+    context.fillText("Average", 0, SampleCanvasHeight/2.5 + 40);
+
+    //add population text
+    context.fillText("Population", 0, 18);
+
 
     if (BallList.length == 0) {
         newSample();
@@ -392,7 +423,7 @@ function updateGraph() {
         //map barheight to canvas height
         let barheight = heights[i];
         barheight = map(barheight, 0, max + 20, SampleCanvasHeight / 2);
-        rect(i * (SampleCanvasWidth / 10), SampleCanvasHeight, SampleCanvasWidth / 10, -barheight, "#000000", "sampleCanvas");
+        rect(i * (SampleCanvasWidth / 10), SampleCanvasHeight, SampleCanvasWidth / 10, -barheight, samplebarcolor, "sampleCanvas");
     }
 }
 
