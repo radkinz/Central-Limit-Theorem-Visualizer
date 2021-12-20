@@ -275,7 +275,7 @@ for (let i = 0; i < populationheights.length; i++) {
     rect(i * (PopulationCanvasWidth / 10), PopulationCanvasHeight, PopulationCanvasWidth / 10, -populationheights[i], populationbarcolor, "populationCanvas");
 }
 
-let framesPerSecond = 90;
+let framesPerSecond = 60;
 let interval;
 
 //always avg display line
@@ -298,9 +298,6 @@ function animate() {
         // animating/drawing code goes here
         if (run) {
             CentralLimitTheorem();
-            if (!interval) {
-                interval = setInterval(newSample, 500);
-            }
         } else {
             clearInterval(interval);
             interval = undefined;
@@ -464,4 +461,9 @@ function newSampleSize() {
     //restart entire CLT
     BallList = [];
     heights = null;
+}
+
+function newFrameRate() {
+    //change sample size
+    framesPerSecond = document.getElementById("framerate").value;
 }
