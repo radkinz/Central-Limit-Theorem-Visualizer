@@ -19,7 +19,14 @@
           <button id="button">Start Sampling</button>
         </div>
         <div>
-          Sample Size: <input id="sampleSize" type="number" min="1" max="100" onchange="newSampleSize()"/>
+          Sample Size:
+          <input
+            id="sampleSize"
+            type="number"
+            min="1"
+            max="100"
+            onchange="newSampleSize()"
+          />
         </div>
       </div>
 
@@ -27,8 +34,10 @@
         <div>
           <canvas id="populationCanvas"></canvas>
         </div>
-        <div>
+        <div id="canvascontainer">
           <canvas id="sampleCanvas"></canvas>
+
+          <canvas id="avgline"></canvas>
         </div>
         <p>Sample</p>
       </div>
