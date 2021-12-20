@@ -181,9 +181,11 @@ let run = false;
 
 //set canvas element to porportion of browser height
 document.getElementById("sampleCanvas").width = (window.innerWidth * 0.50);
-document.getElementById("sampleCanvas").height = (window.innerHeight * 0.55);
+document.getElementById("sampleCanvas").height = (window.innerHeight * 0.57);
 document.getElementById("populationCanvas").width = (window.innerWidth * 0.50);
-document.getElementById("populationCanvas").height = (window.innerHeight * 0.25);
+document.getElementById("populationCanvas").height = (window.innerHeight * 0.20);
+document.getElementById("avgline").width = (window.innerWidth * 0.50);
+document.getElementById("avgline").height = (window.innerHeight * 0.57);
 
 let SampleCanvasWidth = document.getElementById("sampleCanvas").width;
 let SampleCanvasHeight = document.getElementById("sampleCanvas").height;
@@ -277,13 +279,15 @@ let framesPerSecond = 90;
 let interval;
 
 //always avg display line
-rect(0, SampleCanvasHeight/2.5 + 23, SampleCanvasWidth, 2, "#000000", "sampleCanvas");
+rect(0, SampleCanvasHeight/2.5 + 20, SampleCanvasWidth, 2, "#000000", "avgline");
 
 //add avg text
-var canvas = document.getElementById("sampleCanvas");
+var canvas = document.getElementById("avgline");
 var context = canvas.getContext("2d");
+console.log(canvas)
 context.fillStyle = "black";
 context.font = "18px Arial";
+console.log(SampleCanvasHeight)
 context.fillText("Average", 0, SampleCanvasHeight/2.5 + 40);
 context.fillText("Population", 0, 18);
 
@@ -295,7 +299,7 @@ function animate() {
         if (run) {
             CentralLimitTheorem();
             if (!interval) {
-                interval = setInterval(newSample, 300);
+                interval = setInterval(newSample, 500);
             }
         } else {
             clearInterval(interval);
@@ -309,23 +313,12 @@ animate();
 
 let BallList = [];
 let sampleSize = 3;
+//change input value
+document.getElementById("sampleSize").value = sampleSize;
 
 function CentralLimitTheorem() {
     //clear background
     rect(0, 0, SampleCanvasWidth, SampleCanvasHeight, "#FFFFFF", "sampleCanvas");
-
-    //always display avg line
-    rect(0, SampleCanvasHeight/2.5 + 23, SampleCanvasWidth, 2, "#000000", "sampleCanvas");
-
-    //add avg text
-    var canvas = document.getElementById("sampleCanvas");
-    var context = canvas.getContext("2d");
-    context.fillStyle = "black";
-    context.font = "18px Arial";
-    context.fillText("Average", 0, SampleCanvasHeight/2.5 + 40);
-
-    //add population text
-    context.fillText("Population", 0, 18);
 
     if (BallList.length == 0) {
         newSample();
