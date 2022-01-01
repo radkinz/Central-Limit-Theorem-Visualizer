@@ -164,7 +164,7 @@ class SampleList {
     for (let i = 0; i < this.ballList.length; i++) {
       mean += parseInt(this.ballList[i].sampleNum)
     }
-    mean = (mean / this.ballList.length)
+    mean = mean / this.ballList.length
     let averageBall = new SampleBall(mean, avgballcolor)
     averageBall.y = SampleCanvasHeight / 2.5
 
@@ -231,44 +231,47 @@ document.getElementById('button').onclick = function () {
 }
 
 let weightednums = []
-let weight = 1
+let weight = 5
 let population
 
 generatePopulation()
 
 ///generate population function
 function generatePopulation () {
+  //check if weight value means no weight and al random
   //create weighted basket to generate pop numbers
   weightednums = []
   for (let i = 1; i < 11; i++) {
     weightednums.push(i)
   }
 
-  // //add extra numbers for weight and around weight
-  for (let i = 0; i < 10; i++) {
-    weightednums.push(weight)
-  }
+  if (weight !== 0) {
+    // //add extra numbers for weight and around weight
+    for (let i = 0; i < 10; i++) {
+      weightednums.push(weight)
+    }
 
-  if (weight > 1) {
-    weightednums.push(weight - 1)
-    weightednums.push(weight - 1)
-    weightednums.push(weight - 1)
-  }
+    if (weight > 1) {
+      weightednums.push(weight - 1)
+      weightednums.push(weight - 1)
+      weightednums.push(weight - 1)
+    }
 
-  if (weight < 10) {
-    weightednums.push(weight + 1)
-    weightednums.push(weight + 1)
-    weightednums.push(weight + 1)
-  }
+    if (weight < 10) {
+      weightednums.push(weight + 1)
+      weightednums.push(weight + 1)
+      weightednums.push(weight + 1)
+    }
 
-  if (weight <= 8) {
-    weightednums.push(weight + 2)
-    weightednums.push(weight + 2)
-  }
+    if (weight <= 8) {
+      weightednums.push(weight + 2)
+      weightednums.push(weight + 2)
+    }
 
-  if (weight > 2) {
-    weightednums.push(weight - 2)
-    weightednums.push(weight - 2)
+    if (weight > 2) {
+      weightednums.push(weight - 2)
+      weightednums.push(weight - 2)
+    }
   }
 
   //setup population
@@ -342,7 +345,7 @@ function generatePopulation () {
   }
 }
 
-let framesPerSecond = 3000
+let framesPerSecond = 60
 let interval
 
 //always avg display line
@@ -497,6 +500,9 @@ function updateSamples () {
     //check if need to shift to mean
     if (BallList[i].checkMidBoundary() && !BallList[i].averaging) {
       BallList[i].averageList()
+      if (framesPerSecond > 80) {
+        newSample()
+      }
     }
 
     //check if out of bounds
@@ -553,6 +559,6 @@ function newWeight () {
   generatePopulation()
 
   //restart entire CLT
- BallList = []
- heights = null
+  BallList = []
+  heights = null
 }

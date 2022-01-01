@@ -30,10 +30,11 @@
         </div>
         <div>
           Frame Rate:
-          <input type="number" min="1" max="100" value="60" class="slider" id="framerate" onchange="newFrameRate()">
+          <input type="range" min="1" max="100" value="60" id="framerate" onchange="newFrameRate()">
         </div>
         <div>
-          <input type="range" min="0" max="10" value="1" id="weight" onchange="newWeight()">
+          Change Population Distribution:
+          <input type="range" min="0" max="10" value="5" id="weight" onchange="newWeight()">
         </div>
       </div>
 
