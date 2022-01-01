@@ -162,9 +162,9 @@ class SampleList {
   averageList () {
     let mean = 0
     for (let i = 0; i < this.ballList.length; i++) {
-      mean += this.ballList[i].sampleNum
+      mean += parseInt(this.ballList[i].sampleNum)
     }
-    mean = mean / this.ballList.length
+    mean = (mean / this.ballList.length)
     let averageBall = new SampleBall(mean, avgballcolor)
     averageBall.y = SampleCanvasHeight / 2.5
 
@@ -230,101 +230,119 @@ document.getElementById('button').onclick = function () {
   }
 }
 
-//create weighted basket to generate pop numbers
 let weightednums = []
-let weight = 1;
-for (let i = 1; i < 11; i++) {
-  weightednums.push(i)
-}
+let weight = 1
+let population
 
-//add extra numbers for weight and around weight
-for (let i = 0; i < 10; i++) {
-  weightednums.push(weight)
-}
+generatePopulation()
 
-if (weight > 1) {
+///generate population function
+function generatePopulation () {
+  //create weighted basket to generate pop numbers
+  weightednums = []
+  for (let i = 1; i < 11; i++) {
+    weightednums.push(i)
+  }
+
+  // //add extra numbers for weight and around weight
+  for (let i = 0; i < 10; i++) {
+    weightednums.push(weight)
+  }
+
+  if (weight > 1) {
     weightednums.push(weight - 1)
     weightednums.push(weight - 1)
     weightednums.push(weight - 1)
-}
+  }
 
-if (weight < 10) {
+  if (weight < 10) {
     weightednums.push(weight + 1)
     weightednums.push(weight + 1)
     weightednums.push(weight + 1)
-}
+  }
 
-if (weight <= 8) {
+  if (weight <= 8) {
     weightednums.push(weight + 2)
     weightednums.push(weight + 2)
-}
+  }
 
-if (weight > 2) {
+  if (weight > 2) {
     weightednums.push(weight - 2)
     weightednums.push(weight - 2)
-}
+  }
 
-//setup population
-let population = []
-for (let i = 0; i < 1000; i++) {
-  population.push(weightednums[Math.floor(random(0, weightednums.length))])
-}
+  //setup population
+  population = []
+  for (let i = 0; i < 1000; i++) {
+    population.push(weightednums[Math.floor(random(0, weightednums.length))])
+  }
 
-//graph population
-//setup population heights
-populationheights = []
+  //graph population
+  //setup population heights
+  populationheights = []
 
-for (let i = 0; i < 10; i++) {
-  populationheights.push(0)
-}
+  for (let i = 0; i < 10; i++) {
+    populationheights.push(0)
+  }
 
-//setup population heights
-for (let i = 0; i < population.length; i++) {
-  if (population[i] == 1) {
-    populationheights[0] += 1
+  //setup population heights
+  for (let i = 0; i < population.length; i++) {
+    if (population[i] == 1) {
+      populationheights[0] += 1
+    }
+    if (population[i] == 2) {
+      populationheights[1] += 1
+    }
+    if (population[i] == 3) {
+      populationheights[2] += 1
+    }
+    if (population[i] == 4) {
+      populationheights[3] += 1
+    }
+    if (population[i] == 5) {
+      populationheights[4] += 1
+    }
+    if (population[i] == 6) {
+      populationheights[5] += 1
+    }
+    if (population[i] == 7) {
+      populationheights[6] += 1
+    }
+    if (population[i] == 8) {
+      populationheights[7] += 1
+    }
+    if (population[i] == 9) {
+      populationheights[8] += 1
+    }
+    if (population[i] == 10) {
+      populationheights[9] += 1
+    }
   }
-  if (population[i] == 2) {
-    populationheights[1] += 1
-  }
-  if (population[i] == 3) {
-    populationheights[2] += 1
-  }
-  if (population[i] == 4) {
-    populationheights[3] += 1
-  }
-  if (population[i] == 5) {
-    populationheights[4] += 1
-  }
-  if (population[i] == 6) {
-    populationheights[5] += 1
-  }
-  if (population[i] == 7) {
-    populationheights[6] += 1
-  }
-  if (population[i] == 8) {
-    populationheights[7] += 1
-  }
-  if (population[i] == 9) {
-    populationheights[8] += 1
-  }
-  if (population[i] == 10) {
-    populationheights[9] += 1
-  }
-}
 
-//display graph
-for (let i = 0; i < populationheights.length; i++) {
+  //clear population canvas
   rect(
-    i * (PopulationCanvasWidth / 10),
+    0,
+    0,
+    PopulationCanvasWidth,
     PopulationCanvasHeight,
-    PopulationCanvasWidth / 10,
-    -populationheights[i],
-    populationbarcolor,
+    'white',
     'populationCanvas'
   )
+
+  //display graph
+  for (let i = 0; i < populationheights.length; i++) {
+    rect(
+      i * (PopulationCanvasWidth / 10),
+      PopulationCanvasHeight,
+      PopulationCanvasWidth / 10,
+      -populationheights[i],
+      populationbarcolor,
+      'populationCanvas'
+    )
+  }
 }
 
-let framesPerSecond = 60
+let framesPerSecond = 3000
 let interval
 
 //always avg display line
@@ -340,10 +358,8 @@ rect(
 //add avg text
 var canvas = document.getElementById('avgline')
 var context = canvas.getContext('2d')
-console.log(canvas)
 context.fillStyle = 'black'
 context.font = '18px Arial'
-console.log(SampleCanvasHeight)
 context.fillText('Average', 0, SampleCanvasHeight / 2.5 + 40)
 context.fillText('Population', 0, 18)
 
@@ -411,8 +427,6 @@ function addtograph (mean) {
       heights.push(0)
     }
   }
-
-  console.log(mean)
 
   //get freq
   if (mean < 1) {
@@ -489,8 +503,11 @@ function updateSamples () {
     if (BallList[i].checkEndBoundary()) {
       BallList.splice(i, 1)
     }
-    BallList[i].update()
-    BallList[i].display()
+
+    if (BallList[i]) {
+      BallList[i].update()
+      BallList[i].display()
+    }
   }
 }
 
@@ -527,4 +544,15 @@ function newSampleSize () {
 function newFrameRate () {
   //change sample size
   framesPerSecond = document.getElementById('framerate').value
+}
+
+function newWeight () {
+  //change weight
+  weight = parseInt(document.getElementById('weight').value)
+  //generate new population
+  generatePopulation()
+
+  //restart entire CLT
+ BallList = []
+ heights = null
 }
