@@ -10,42 +10,13 @@ class SampleBall {
     this.sampleNum = sample
     this.y = 0
     this.x =
-      this.getXpos() * (SampleCanvasWidth / 10) + SampleCanvasWidth / 10 / 2
+      this.getXpos() * (SampleCanvasWidth / 100) + SampleCanvasWidth / 100 / 2
     this.color = c
     this.dead = false
   }
 
   getXpos () {
-    if (this.sampleNum < 1) {
-      return 0
-    }
-    if (this.sampleNum < 2 && this.sampleNum >= 1) {
-      return 1
-    }
-    if (this.sampleNum < 3 && this.sampleNum >= 2) {
-      return 2
-    }
-    if (this.sampleNum < 4 && this.sampleNum >= 3) {
-      return 3
-    }
-    if (this.sampleNum < 5 && this.sampleNum >= 4) {
-      return 4
-    }
-    if (this.sampleNum < 6 && this.sampleNum >= 5) {
-      return 5
-    }
-    if (this.sampleNum < 7 && this.sampleNum >= 6) {
-      return 6
-    }
-    if (this.sampleNum < 8 && this.sampleNum >= 7) {
-      return 7
-    }
-    if (this.sampleNum < 9 && this.sampleNum >= 8) {
-      return 8
-    }
-    if (this.sampleNum >= 9) {
-      return 9
-    }
+    return Math.floor(this.sampleNum)
   }
 
   show (canvas) {
@@ -231,7 +202,7 @@ document.getElementById('button').onclick = function () {
 }
 
 let weightednums = []
-let weight = 5
+let weight = 50
 let population
 
 generatePopulation()
@@ -241,85 +212,161 @@ function generatePopulation () {
   //check if weight value means no weight and al random
   //create weighted basket to generate pop numbers
   weightednums = []
-  for (let i = 1; i < 11; i++) {
+  for (let i = 0; i < 101; i++) {
     weightednums.push(i)
   }
 
   if (weight !== 0) {
-    // //add extra numbers for weight and around weight
-    for (let i = 0; i < 10; i++) {
+    //add extra numbers for weight and around weight
+    for (let i = 0; i < 15; i++) {
       weightednums.push(weight)
     }
 
-    if (weight > 1) {
-      weightednums.push(weight - 1)
-      weightednums.push(weight - 1)
-      weightednums.push(weight - 1)
+    if (weight > 0) {
+      for (let i = 0; i < 10; i++) {
+        weightednums.push(weight - 1)
+      }
     }
 
-    if (weight < 10) {
-      weightednums.push(weight + 1)
-      weightednums.push(weight + 1)
-      weightednums.push(weight + 1)
+    if (weight < 100) {
+      for (let i = 0; i < 10; i++) {
+        weightednums.push(weight + 1)
+      }
     }
 
-    if (weight <= 8) {
-      weightednums.push(weight + 2)
-      weightednums.push(weight + 2)
+    if (weight <= 98) {
+      for (let i = 0; i < 5; i++) {
+        weightednums.push(weight + 2)
+      }
     }
 
     if (weight > 2) {
-      weightednums.push(weight - 2)
-      weightednums.push(weight - 2)
+      for (let i = 0; i < 5; i++) {
+        weightednums.push(weight - 2)
+      }
+    }
+
+    if (weight <= 97) {
+      for (let i = 0; i < 5; i++) {
+        weightednums.push(weight + 3)
+      }
+    }
+
+    if (weight > 3) {
+      for (let i = 0; i < 5; i++) {
+        weightednums.push(weight - 3)
+      }
+    }
+
+    if (weight <= 96) {
+      for (let i = 0; i < 3; i++) {
+        weightednums.push(weight + 4)
+      }
+    }
+
+    if (weight > 4) {
+      for (let i = 0; i < 3; i++) {
+        weightednums.push(weight - 4)
+      }
+    }
+
+    if (weight <= 95) {
+      for (let i = 0; i < 3; i++) {
+        weightednums.push(weight + 5)
+      }
+    }
+
+    if (weight > 5) {
+      for (let i = 0; i < 3; i++) {
+        weightednums.push(weight - 5)
+      }
+    }
+
+    if (weight <= 94) {
+      for (let i = 0; i < 3; i++) {
+        weightednums.push(weight + 6)
+      }
+    }
+
+    if (weight > 6) {
+      for (let i = 0; i < 3; i++) {
+        weightednums.push(weight - 6)
+      }
+    }
+
+    
+    if (weight <= 93) {
+      for (let i = 0; i < 3; i++) {
+        weightednums.push(weight + 7)
+      }
+    }
+
+    if (weight > 7) {
+      for (let i = 0; i < 3; i++) {
+        weightednums.push(weight - 7)
+      }
+    }
+
+    if (weight <= 92) {
+      for (let i = 0; i < 2; i++) {
+        weightednums.push(weight + 8)
+      }
+    }
+
+    if (weight > 8) {
+      for (let i = 0; i < 2; i++) {
+        weightednums.push(weight - 8)
+      }
+    }
+
+    if (weight <= 91) {
+      for (let i = 0; i < 2; i++) {
+        weightednums.push(weight + 9)
+      }
+    }
+
+    if (weight > 9) {
+      for (let i = 0; i < 2; i++) {
+        weightednums.push(weight - 9)
+      }
+    }
+
+    if (weight <= 90) {
+      for (let i = 0; i < 2; i++) {
+        weightednums.push(weight + 10)
+      }
+    }
+
+    if (weight > 10) {
+      for (let i = 0; i < 2; i++) {
+        weightednums.push(weight - 10)
+      }
     }
   }
 
   //setup population
   population = []
-  for (let i = 0; i < 1000; i++) {
-    population.push(weightednums[Math.floor(random(0, weightednums.length))])
+  if (weight == 0) {
+    for (let i = 0; i < 10000; i++) {
+      population.push(weightednums[Math.floor(random(0, weightednums.length))])
+    }
+  } else {
+    for (let i = 0; i < 2000; i++) {
+      population.push(weightednums[Math.floor(random(0, weightednums.length))])
+    }
   }
 
   //graph population
   //setup population heights
   populationheights = []
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     populationheights.push(0)
   }
 
   //setup population heights
   for (let i = 0; i < population.length; i++) {
-    if (population[i] == 1) {
-      populationheights[0] += 1
-    }
-    if (population[i] == 2) {
-      populationheights[1] += 1
-    }
-    if (population[i] == 3) {
-      populationheights[2] += 1
-    }
-    if (population[i] == 4) {
-      populationheights[3] += 1
-    }
-    if (population[i] == 5) {
-      populationheights[4] += 1
-    }
-    if (population[i] == 6) {
-      populationheights[5] += 1
-    }
-    if (population[i] == 7) {
-      populationheights[6] += 1
-    }
-    if (population[i] == 8) {
-      populationheights[7] += 1
-    }
-    if (population[i] == 9) {
-      populationheights[8] += 1
-    }
-    if (population[i] == 10) {
-      populationheights[9] += 1
-    }
+    populationheights[population[i]] += 1
   }
 
   //clear population canvas
@@ -335,9 +382,9 @@ function generatePopulation () {
   //display graph
   for (let i = 0; i < populationheights.length; i++) {
     rect(
-      i * (PopulationCanvasWidth / 10),
+      i * (PopulationCanvasWidth / 100),
       PopulationCanvasHeight,
-      PopulationCanvasWidth / 10,
+      PopulationCanvasWidth / 100,
       -populationheights[i],
       populationbarcolor,
       'populationCanvas'
@@ -426,42 +473,14 @@ function addtograph (mean) {
   //declare bar array
   if (heights == null) {
     heights = []
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 100; i++) {
       heights.push(0)
     }
   }
 
-  //get freq
-  if (mean < 1) {
-    heights[0] += 1
-  }
-  if (mean < 2 && mean >= 1) {
-    heights[1] += 1
-  }
-  if (mean < 3 && mean >= 2) {
-    heights[2] += 1
-  }
-  if (mean < 4 && mean >= 3) {
-    heights[3] += 1
-  }
-  if (mean < 5 && mean >= 4) {
-    heights[4] += 1
-  }
-  if (mean < 6 && mean >= 5) {
-    heights[5] += 1
-  }
-  if (mean < 7 && mean >= 6) {
-    heights[6] += 1
-  }
-  if (mean < 8 && mean >= 7) {
-    heights[7] += 1
-  }
-  if (mean < 9 && mean >= 8) {
-    heights[8] += 1
-  }
-  if (mean >= 9) {
-    heights[9] += 1
-  }
+  //get freq and add to graph
+  mean = Math.floor(mean)
+  heights[mean] += 1
 }
 
 function updateGraph () {
@@ -484,9 +503,9 @@ function updateGraph () {
     let barheight = heights[i]
     barheight = map(barheight, 0, max + 20, SampleCanvasHeight / 2)
     rect(
-      i * (SampleCanvasWidth / 10),
+      i * (SampleCanvasWidth / 100),
       SampleCanvasHeight,
-      SampleCanvasWidth / 10,
+      SampleCanvasWidth / 100,
       -barheight,
       samplebarcolor,
       'sampleCanvas'
