@@ -1,14 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Fjalla+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100;300;400;700&display=swap');
 
 html {
   margin: 0;
   padding: 0;
-  font-family: 'Fjalla One', sans-serif;
 }
 
 h1 {
   text-align: center;
   font-family: 'Fjalla One', sans-serif;
+}
+
+button {
+  cursor: pointer;
 }
 
 #canvascontainer {
@@ -56,16 +60,19 @@ h1 {
   border-bottom: 2px solid black;
 }
 
+div {
+  font-family: 'Lato', sans-serif;
+}
+
 p {
-  font-family: Arial;
   margin-top: -5px;
   font-size: 18px;
 }
 
-#button {
+#button, #randomDist {
   background-color: rgba(255, 243, 134, 0.89);
   border: none;
-  font-family: Arial;
+  font-family: 'Lato', sans-serif;
   font-weight: 800;
   border-radius: 5px;
   font-size: 20px;
@@ -75,6 +82,11 @@ p {
   margin-bottom: 10px;
 }
 
+#randomDist {
+  font-size: 15px;
+  margin-top: 10px;
+}
+
 input {
   height: 20px;
   margin-top: 10px;
@@ -82,4 +94,47 @@ input {
 
 #button:hover {
   background-color: rgba(255, 237, 72, 0.89);
+}
+
+#randomDist:hover {
+  background-color: rgba(255, 237, 72, 0.89);
+}
+
+#rangeDiv {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.label {
+  text-align: center;
+}
+
+.range {
+  -webkit-appearance: none;
+  border-radius: 5px;
+  height: 10px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.range:hover {
+  opacity: 1;
+}
+
+.range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 50%;
+  background: #04AA6D;
+  cursor: pointer;
+}
+
+.range::-moz-range-thumb {
+  border-radius: 50%;
+  background: #04AA6D;
+  cursor: pointer;
 }

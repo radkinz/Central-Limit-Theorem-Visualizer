@@ -216,85 +216,84 @@ function generatePopulation () {
     weightednums.push(i)
   }
 
-  if (weight !== 0) {
+  if (weight !== -1) {
     //add extra numbers for weight and around weight
     for (let i = 0; i < 15; i++) {
       weightednums.push(weight)
     }
 
     if (weight > 0) {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 15; i++) {
         weightednums.push(weight - 1)
       }
     }
 
     if (weight < 100) {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 15; i++) {
         weightednums.push(weight + 1)
       }
     }
 
     if (weight <= 98) {
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 10; i++) {
         weightednums.push(weight + 2)
       }
     }
 
     if (weight > 2) {
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 10; i++) {
         weightednums.push(weight - 2)
       }
     }
 
     if (weight <= 97) {
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 10; i++) {
         weightednums.push(weight + 3)
       }
     }
 
     if (weight > 3) {
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < 10; i++) {
         weightednums.push(weight - 3)
       }
     }
 
     if (weight <= 96) {
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 5; i++) {
         weightednums.push(weight + 4)
       }
     }
 
     if (weight > 4) {
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 5; i++) {
         weightednums.push(weight - 4)
       }
     }
 
     if (weight <= 95) {
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 5; i++) {
         weightednums.push(weight + 5)
       }
     }
 
     if (weight > 5) {
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 5; i++) {
         weightednums.push(weight - 5)
       }
     }
 
     if (weight <= 94) {
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 5; i++) {
         weightednums.push(weight + 6)
       }
     }
 
     if (weight > 6) {
-      for (let i = 0; i < 3; i++) {
+      for (let i = 0; i < 5; i++) {
         weightednums.push(weight - 6)
       }
     }
 
-    
     if (weight <= 93) {
       for (let i = 0; i < 3; i++) {
         weightednums.push(weight + 7)
@@ -308,7 +307,7 @@ function generatePopulation () {
     }
 
     if (weight <= 92) {
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 3; i++) {
         weightednums.push(weight + 8)
       }
     }
@@ -320,13 +319,13 @@ function generatePopulation () {
     }
 
     if (weight <= 91) {
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 3; i++) {
         weightednums.push(weight + 9)
       }
     }
 
     if (weight > 9) {
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 3; i++) {
         weightednums.push(weight - 9)
       }
     }
@@ -342,11 +341,35 @@ function generatePopulation () {
         weightednums.push(weight - 10)
       }
     }
+
+    if (weight <= 89) {
+      for (let i = 0; i < 2; i++) {
+        weightednums.push(weight + 11)
+      }
+    }
+
+    if (weight > 11) {
+      for (let i = 0; i < 2; i++) {
+        weightednums.push(weight - 11)
+      }
+    }
+
+    if (weight <= 88) {
+      for (let i = 0; i < 2; i++) {
+        weightednums.push(weight + 12)
+      }
+    }
+
+    if (weight > 12) {
+      for (let i = 0; i < 2; i++) {
+        weightednums.push(weight - 12)
+      }
+    }
   }
 
   //setup population
   population = []
-  if (weight == 0) {
+  if (weight == -1) {
     for (let i = 0; i < 10000; i++) {
       population.push(weightednums[Math.floor(random(0, weightednums.length))])
     }
@@ -574,6 +597,17 @@ function newFrameRate () {
 function newWeight () {
   //change weight
   weight = parseInt(document.getElementById('weight').value)
+  //generate new population
+  generatePopulation()
+
+  //restart entire CLT
+  BallList = []
+  heights = null
+}
+
+function randomDist () {
+  weight = -1
+
   //generate new population
   generatePopulation()
 

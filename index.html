@@ -19,7 +19,7 @@
           <button id="button">Start Sampling</button>
         </div>
         <div>
-          Sample Size:
+          Change Sample Size:
           <input
             id="sampleSize"
             type="number"
@@ -28,13 +28,16 @@
             onchange="newSampleSize()"
           />
         </div>
-        <div>
-          Frame Rate:
-          <input type="range" min="1" max="100" value="60" id="framerate" onchange="newFrameRate()">
+        <div id="rangeDiv">
+          <label for="myslider" id="mylabel" class="label">Change Visualization Speed:</label>
+          <input type="range" class="range" min="1" max="100" value="60" id="framerate" onchange="newFrameRate()">
+        </div>
+        <div id="rangeDiv">
+          <label for="myslider" id="mylabel" class="label">Change Population Distribution:</label>
+          <input type="range" class="range" min="0" max="100" value="50" id="weight" onchange="newWeight()">
         </div>
         <div>
-          Change Population Distribution:
-          <input type="range" min="0" max="100" value="50" id="weight" onchange="newWeight()">
+          <button type="button" id="randomDist" onclick="randomDist()">Generate a Random Distribution</button> 
         </div>
       </div>
 
