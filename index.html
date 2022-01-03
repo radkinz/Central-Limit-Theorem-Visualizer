@@ -15,29 +15,54 @@
     <h1>The Central Limit Theorem</h1>
     <div id="container">
       <div id="sidebar">
-        <div>
-          <button id="button">Start Sampling</button>
-        </div>
-        <div>
-          Change Sample Size:
-          <input
-            id="sampleSize"
-            type="number"
-            min="1"
-            max="100"
-            onchange="newSampleSize()"
-          />
-        </div>
-        <div id="rangeDiv">
-          <label for="myslider" id="mylabel" class="label">Change Visualization Speed:</label>
-          <input type="range" class="range" min="1" max="100" value="60" id="framerate" onchange="newFrameRate()">
-        </div>
-        <div id="rangeDiv">
-          <label for="myslider" id="mylabel" class="label">Change Population Distribution:</label>
-          <input type="range" class="range" min="0" max="100" value="50" id="weight" onchange="newWeight()">
-        </div>
-        <div>
-          <button type="button" id="randomDist" onclick="randomDist()">Generate a Random Distribution</button> 
+        <div id="sidebarcontainer">
+          <h2>Customize Your Visualization!</h2>
+          <div>
+            Change Sample Size:
+            <input
+              id="sampleSize"
+              type="number"
+              min="1"
+              max="100"
+              onchange="newSampleSize()"
+            />
+          </div>
+          <div id="rangeDiv">
+            <label for="myslider" id="mylabel" class="label"
+              >Change Visualization Speed:</label
+            >
+            <input
+              type="range"
+              class="range"
+              min="1"
+              max="100"
+              value="50"
+              id="framerate"
+              onchange="newFrameRate()"
+            />
+          </div>
+          <div id="rangeDiv">
+            <label for="myslider" id="mylabel" class="label"
+              >Change Population Distribution:</label
+            >
+            <input
+              type="range"
+              class="range"
+              min="0"
+              max="100"
+              value="50"
+              id="weight"
+              onchange="newWeight()"
+            />
+          </div>
+          <div>
+            <button type="button" id="randomDist" onclick="randomDist()">
+              Generate a Random Distribution
+            </button>
+          </div>
+          <div>
+            <button id="button">Start Sampling</button>
+          </div>
         </div>
       </div>
 
