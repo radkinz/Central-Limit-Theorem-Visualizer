@@ -10,7 +10,7 @@ class SampleBall {
     this.sampleNum = sample
     this.y = 0
     this.x =
-      this.getXpos() * (SampleCanvasWidth / 100) + SampleCanvasWidth / 100 / 2
+      this.getXpos() * (SampleCanvasWidth / max) + SampleCanvasWidth / max / 2
     this.color = c
     this.dead = false
   }
@@ -202,8 +202,9 @@ document.getElementById('button').onclick = function () {
 }
 
 let weightednums = []
-let weight = 50
+let weight = 10
 let population
+let max = 20
 
 generatePopulation()
 
@@ -212,7 +213,7 @@ function generatePopulation () {
   //check if weight value means no weight and al random
   //create weighted basket to generate pop numbers
   weightednums = []
-  for (let i = 0; i < 101; i++) {
+  for (let i = 0; i <= max; i++) {
     weightednums.push(i)
   }
 
@@ -228,13 +229,13 @@ function generatePopulation () {
       }
     }
 
-    if (weight < 100) {
+    if (weight < max) {
       for (let i = 0; i < 15; i++) {
         weightednums.push(weight + 1)
       }
     }
 
-    if (weight <= 98) {
+    if (weight <= max-2) {
       for (let i = 0; i < 10; i++) {
         weightednums.push(weight + 2)
       }
@@ -246,7 +247,7 @@ function generatePopulation () {
       }
     }
 
-    if (weight <= 97) {
+    if (weight <= max-3) {
       for (let i = 0; i < 10; i++) {
         weightednums.push(weight + 3)
       }
@@ -258,7 +259,7 @@ function generatePopulation () {
       }
     }
 
-    if (weight <= 96) {
+    if (weight <= max-4) {
       for (let i = 0; i < 5; i++) {
         weightednums.push(weight + 4)
       }
@@ -270,7 +271,7 @@ function generatePopulation () {
       }
     }
 
-    if (weight <= 95) {
+    if (weight <= max-5) {
       for (let i = 0; i < 5; i++) {
         weightednums.push(weight + 5)
       }
@@ -282,7 +283,7 @@ function generatePopulation () {
       }
     }
 
-    if (weight <= 94) {
+    if (weight <= max-6) {
       for (let i = 0; i < 5; i++) {
         weightednums.push(weight + 6)
       }
@@ -294,7 +295,7 @@ function generatePopulation () {
       }
     }
 
-    if (weight <= 93) {
+    if (weight <= max-7) {
       for (let i = 0; i < 3; i++) {
         weightednums.push(weight + 7)
       }
@@ -306,7 +307,7 @@ function generatePopulation () {
       }
     }
 
-    if (weight <= 92) {
+    if (weight <= max-8) {
       for (let i = 0; i < 3; i++) {
         weightednums.push(weight + 8)
       }
@@ -318,7 +319,7 @@ function generatePopulation () {
       }
     }
 
-    if (weight <= 91) {
+    if (weight <= max-9) {
       for (let i = 0; i < 3; i++) {
         weightednums.push(weight + 9)
       }
@@ -330,7 +331,7 @@ function generatePopulation () {
       }
     }
 
-    if (weight <= 90) {
+    if (weight <= max-10) {
       for (let i = 0; i < 2; i++) {
         weightednums.push(weight + 10)
       }
@@ -342,7 +343,7 @@ function generatePopulation () {
       }
     }
 
-    if (weight <= 89) {
+    if (weight <= max-11) {
       for (let i = 0; i < 2; i++) {
         weightednums.push(weight + 11)
       }
@@ -354,7 +355,7 @@ function generatePopulation () {
       }
     }
 
-    if (weight <= 88) {
+    if (weight <= max-12) {
       for (let i = 0; i < 2; i++) {
         weightednums.push(weight + 12)
       }
@@ -383,7 +384,7 @@ function generatePopulation () {
   //setup population heights
   populationheights = []
 
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < max; i++) {
     populationheights.push(0)
   }
 
@@ -405,9 +406,9 @@ function generatePopulation () {
   //display graph
   for (let i = 0; i < populationheights.length; i++) {
     rect(
-      i * (PopulationCanvasWidth / 100),
+      i * (PopulationCanvasWidth / max),
       PopulationCanvasHeight,
-      PopulationCanvasWidth / 100,
+      PopulationCanvasWidth / max,
       -populationheights[i],
       populationbarcolor,
       'populationCanvas'
@@ -474,7 +475,7 @@ function newSample () {
   let nums = []
   for (let i = 0; i < sampleSize; i++) {
     //get random index from population arr
-    let index = random(0, 100)
+    let index = random(0, max)
     nums.push(population[index])
   }
 
@@ -496,7 +497,7 @@ function addtograph (mean) {
   //declare bar array
   if (heights == null) {
     heights = []
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < max; i++) {
       heights.push(0)
     }
   }
@@ -512,11 +513,11 @@ function updateGraph () {
   }
 
   //get max
-  let max = 0
+  let Heightmax = 0
   for (let i = 0; i < heights.length; i++) {
     //get max for mapping later
-    if (heights[i] > max) {
-      max = heights[i]
+    if (heights[i] > Heightmax) {
+      Heightmax = heights[i]
     }
   }
 
@@ -524,11 +525,11 @@ function updateGraph () {
   for (let i = 0; i < heights.length; i++) {
     //map barheight to canvas height
     let barheight = heights[i]
-    barheight = map(barheight, 0, max + 20, SampleCanvasHeight / 2)
+    barheight = map(barheight, 0, Heightmax + 20, SampleCanvasHeight / 2)
     rect(
-      i * (SampleCanvasWidth / 100),
+      i * (SampleCanvasWidth / max),
       SampleCanvasHeight,
-      SampleCanvasWidth / 100,
+      SampleCanvasWidth / max,
       -barheight,
       samplebarcolor,
       'sampleCanvas'
