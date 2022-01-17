@@ -202,9 +202,9 @@ document.getElementById('button').onclick = function () {
 }
 
 let weightednums = []
-let weight = 10
 let population
-let max = 20
+let max = 50
+let weight = max/2
 
 generatePopulation()
 
@@ -616,3 +616,9 @@ function randomDist () {
   BallList = []
   heights = null
 }
+
+//set value of inputs when javascript ready
+document.addEventListener("DOMContentLoaded", function(event) {
+  document.getElementById('weight').max = max;
+  document.getElementById('weight').value = max/2;
+});
