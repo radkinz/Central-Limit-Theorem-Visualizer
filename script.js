@@ -11,6 +11,7 @@ class SampleBall {
     this.y = 0
     this.x =
       this.getXpos() * (SampleCanvasWidth / max) + SampleCanvasWidth / max / 2
+      console.log(this.x, this.sampleNum)
     this.color = c
     this.dead = false
   }
@@ -416,8 +417,6 @@ function generatePopulation () {
   }
 }
 
-graphExampleData()
-
 function graphExampleData () {
   //get example data
   let data = example_data()
@@ -427,17 +426,19 @@ function graphExampleData () {
   //calculate margin to divide columns
   let margin = Math.floor((maxNum - min) / max)
 
-  //set up heights list
-  let heights = []
+  //re-set up heights and population list
+  populationheights = []
+  population = []
   for (let i = 0; i < max; i++) {
-    heights[i] = 0
+    populationheights[i] = 0
   }
 
   //loop through data
   for (let i = 0; i < data.length; i++) {
     let index = Math.floor(data[i] / margin)
     //track freq of numbers in a certain range
-    heights[index] += 1
+    populationheights[index] += 1
+    population.push(Math.floor(data[i]/margin))
   }
 
   //graph heights
@@ -457,7 +458,7 @@ function graphExampleData () {
       i * (PopulationCanvasWidth / max),
       PopulationCanvasHeight,
       PopulationCanvasWidth / max,
-      -heights[i],
+      -populationheights[i],
       populationbarcolor,
       'populationCanvas'
     )
@@ -523,7 +524,7 @@ function newSample () {
   let nums = []
   for (let i = 0; i < sampleSize; i++) {
     //get random index from population arr
-    let index = random(0, max)
+    let index = random(0, population.length)
     nums.push(population[index])
   }
 
