@@ -72,7 +72,7 @@ p {
   font-size: 18px;
 }
 
-#button, #randomDist {
+#button, #randomDist, #exampleDist {
   background-color: #de70ffa8;
   border: none;
   font-weight: 800;
@@ -84,7 +84,7 @@ p {
   margin-bottom: 10px;
 }
 
-#randomDist {
+#randomDist, #exampleDist {
   background-color: #f89dffad;
   font-size: 15px;
   margin-top: 20px;
@@ -103,7 +103,7 @@ input {
   background-color: #de70ff;
 }
 
-#randomDist:hover {
+#randomDist:hover, #exampleDist:hover {
   background-color: #f89dff;
 }
 
