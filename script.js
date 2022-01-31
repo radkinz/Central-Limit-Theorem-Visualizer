@@ -380,10 +380,6 @@ function generatePopulation () {
     }
   }
 
-  console.log(example_data())
-  console.log(Math.max.apply(Math, example_data()))
-  console.log(Math.min.apply(Math, example_data()))
-
   //graph population
   //setup population heights
   populationheights = []
@@ -414,6 +410,54 @@ function generatePopulation () {
       PopulationCanvasHeight,
       PopulationCanvasWidth / max,
       -populationheights[i],
+      populationbarcolor,
+      'populationCanvas'
+    )
+  }
+}
+
+graphExampleData()
+
+function graphExampleData () {
+  //get example data
+  let data = example_data()
+  //find the min and max
+  let maxNum = Math.max.apply(Math, example_data())
+  let min = Math.min.apply(Math, example_data())
+  //calculate margin to divide columns
+  let margin = Math.floor((maxNum - min) / max)
+
+  //set up heights list
+  let heights = []
+  for (let i = 0; i < max; i++) {
+    heights[i] = 0
+  }
+
+  //loop through data
+  for (let i = 0; i < data.length; i++) {
+    let index = Math.floor(data[i] / margin)
+    //track freq of numbers in a certain range
+    heights[index] += 1
+  }
+
+  //graph heights
+  //clear population canvas
+  rect(
+    0,
+    0,
+    PopulationCanvasWidth,
+    PopulationCanvasHeight,
+    'white',
+    'populationCanvas'
+  )
+
+  //display graph
+  for (let i = 0; i < populationheights.length; i++) {
+    rect(
+      i * (PopulationCanvasWidth / max),
+      PopulationCanvasHeight,
+      PopulationCanvasWidth / max,
+      -heights[i],
       populationbarcolor,
       'populationCanvas'
     )
