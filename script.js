@@ -11,7 +11,7 @@ class SampleBall {
     this.y = 0
     this.x =
       this.getXpos() * (SampleCanvasWidth / max) + SampleCanvasWidth / max / 2
-      console.log(this.x, this.sampleNum)
+    console.log(this.x, this.sampleNum)
     this.color = c
     this.dead = false
   }
@@ -438,8 +438,12 @@ function graphExampleData () {
     let index = Math.floor(data[i] / margin)
     //track freq of numbers in a certain range
     populationheights[index] += 1
-    population.push(Math.floor(data[i]/margin))
+    population.push(Math.floor(data[i] / margin))
   }
+
+  //restart entire CLT
+  BallList = []
+  heights = null
 
   //graph heights
   //clear population canvas
