@@ -177,14 +177,26 @@ function resizeCanvas () {
   PopulationCanvasWidth = document.getElementById('populationCanvas').width
   PopulationCanvasHeight = document.getElementById('populationCanvas').height
 
-  //redisplay pop graph
+  //get max
+  let Heightmax = 0
   for (let i = 0; i < populationheights.length; i++) {
+    //get max for mapping later
+    if (populationheights[i] > Heightmax) {
+      Heightmax = populationheights[i]
+    }
+  }
+
+  //display graph
+  for (let i = 0; i < populationheights.length; i++) {
+    //map barheight to canvas height
+    let barheight = populationheights[i]
+    barheight = map(barheight, 0, Heightmax + 20, SampleCanvasHeight / 2)
     rect(
-      i * (PopulationCanvasWidth / 10),
+      i * (PopulationCanvasWidth / max),
       PopulationCanvasHeight,
-      PopulationCanvasWidth / 10,
-      -populationheights[i],
-      '#000000',
+      PopulationCanvasWidth / max,
+      -barheight,
+      populationbarcolor,
       'populationCanvas'
     )
   }
@@ -404,13 +416,26 @@ function generatePopulation () {
     'populationCanvas'
   )
 
+  //graph population in ratio
+  //get max
+  let Heightmax = 0
+  for (let i = 0; i < populationheights.length; i++) {
+    //get max for mapping later
+    if (populationheights[i] > Heightmax) {
+      Heightmax = populationheights[i]
+    }
+  }
+
   //display graph
   for (let i = 0; i < populationheights.length; i++) {
+    //map barheight to canvas height
+    let barheight = populationheights[i]
+    barheight = map(barheight, 0, Heightmax + 20, SampleCanvasHeight / 2)
     rect(
       i * (PopulationCanvasWidth / max),
       PopulationCanvasHeight,
       PopulationCanvasWidth / max,
-      -populationheights[i],
+      -barheight,
       populationbarcolor,
       'populationCanvas'
     )
@@ -456,13 +481,26 @@ function graphExampleData () {
     'populationCanvas'
   )
 
+  //display graph in ratio
+  //get max
+  let Heightmax = 0
+  for (let i = 0; i < populationheights.length; i++) {
+    //get max for mapping later
+    if (populationheights[i] > Heightmax) {
+      Heightmax = populationheights[i]
+    }
+  }
+
   //display graph
   for (let i = 0; i < populationheights.length; i++) {
+    //map barheight to canvas height
+    let barheight = populationheights[i]
+    barheight = map(barheight, 0, Heightmax + 20, SampleCanvasHeight / 2)
     rect(
       i * (PopulationCanvasWidth / max),
       PopulationCanvasHeight,
       PopulationCanvasWidth / max,
-      -populationheights[i],
+      -barheight,
       populationbarcolor,
       'populationCanvas'
     )
