@@ -152,13 +152,30 @@ let button
 let heights
 let run = false
 
+window.addEventListener("resize", function(){
+  console.log('resize!')
+  setTimeout(function(){
+    window.location.reload();
+},300); 
+}, true);
+
 //set canvas element to porportion of browser height
-document.getElementById('sampleCanvas').width = window.innerWidth * 0.5
-document.getElementById('sampleCanvas').height = window.innerHeight * 0.57
-document.getElementById('populationCanvas').width = window.innerWidth * 0.5
-document.getElementById('populationCanvas').height = window.innerHeight * 0.2
-document.getElementById('avgline').width = window.innerWidth * 0.5
-document.getElementById('avgline').height = window.innerHeight * 0.57
+//check if mobile or desktop view
+if (window.innerWidth <= 600) {
+  document.getElementById('sampleCanvas').width = window.innerWidth * 0.8
+  document.getElementById('sampleCanvas').height = window.innerHeight * 0.57
+  document.getElementById('populationCanvas').width = window.innerWidth * 0.8
+  document.getElementById('populationCanvas').height = window.innerHeight * 0.2
+  document.getElementById('avgline').width = window.innerWidth * 0.8
+  document.getElementById('avgline').height = window.innerHeight * 0.57
+} else {
+  document.getElementById('sampleCanvas').width = window.innerWidth * 0.5
+  document.getElementById('sampleCanvas').height = window.innerHeight * 0.57
+  document.getElementById('populationCanvas').width = window.innerWidth * 0.5
+  document.getElementById('populationCanvas').height = window.innerHeight * 0.2
+  document.getElementById('avgline').width = window.innerWidth * 0.5
+  document.getElementById('avgline').height = window.innerHeight * 0.57
+}
 
 let SampleCanvasWidth = document.getElementById('sampleCanvas').width
 let SampleCanvasHeight = document.getElementById('sampleCanvas').height
