@@ -152,22 +152,6 @@ let button
 let heights
 let run = false
 
-//check if mobile
-const isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
-console.log(isMobile)
-
-let windowWidth = window.innerWidth
-window.addEventListener(
-  'resize',
-  function () {
-    setTimeout(function () {
-        window.location.reload()
-        windowWidth = window.innerWidth
-    }, 300)
-  },
-  true
-)
-
 //set canvas element to porportion of browser height
 //check if mobile or desktop view
 if (window.innerWidth <= 600) {
