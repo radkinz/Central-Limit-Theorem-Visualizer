@@ -152,13 +152,17 @@ let button
 let heights
 let run = false
 
+//check if mobile
+const isMobile = window.matchMedia("only screen and (max-width: 760px)").matches;
+console.log(isMobile)
+
 let windowWidth = window.innerWidth
 window.addEventListener(
   'resize',
   function () {
     console.log('resize!')
     console.log(Math.abs(windowWidth-window.innerWidth))
-    if (Math.abs(windowWidth-window.innerWidth) >= 100) {
+    if (Math.abs(windowWidth-window.innerWidth) >= 100 && isMobile == false) {
     setTimeout(function () {
         window.location.reload()
         windowWidth = window.innerWidth
