@@ -160,14 +160,10 @@ let windowWidth = window.innerWidth
 window.addEventListener(
   'resize',
   function () {
-    console.log('resize!')
-    console.log(Math.abs(windowWidth-window.innerWidth))
-    if (Math.abs(windowWidth-window.innerWidth) >= 100 && isMobile == false) {
     setTimeout(function () {
         window.location.reload()
         windowWidth = window.innerWidth
     }, 300)
-  }
   },
   true
 )
