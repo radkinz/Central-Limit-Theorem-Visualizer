@@ -131,36 +131,6 @@ input {
   text-align: center;
 }
 
-.range {
-  -webkit-appearance: none;
-  border-radius: 5px;
-  margin-left: 5px;
-  margin-top: 5px;
-  height: 5px;
-  background: rgb(71, 71, 71);
-  opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
-}
-
-.range:hover {
-  opacity: 1;
-}
-
-.range::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  border-radius: 50%;
-  background: #c998c9c5;
-  cursor: pointer;
-}
-
-.range::-moz-range-thumb {
-  border-radius: 50%;
-  background: #c998c9;
-  cursor: pointer;
-}
-
 @media only screen and (max-width: 600px) {
   #container {
     width: 90%;
