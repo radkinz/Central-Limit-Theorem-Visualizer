@@ -240,7 +240,7 @@ function generatePopulation () {
     weightednums.push(i)
   }
 
-  if (weight !== -1) {
+  if (weight !== -1 && weight !== -2) {
     //add extra numbers for weight and around weight
     for (let i = 0; i < 15; i++) {
       weightednums.push(weight)
@@ -395,6 +395,10 @@ function generatePopulation () {
   population = []
   if (weight == -1) {
     for (let i = 0; i < 10000; i++) {
+      population.push(weightednums[Math.floor(random(0, weightednums.length))])
+    }
+  } else if (weight == -2) {
+    for (let i = 0; i < 1000; i++) {
       population.push(weightednums[Math.floor(random(0, weightednums.length))])
     }
   } else {
@@ -717,6 +721,18 @@ function randomDist () {
   BallList = []
   heights = null
 }
+
+function randomDist2 () {
+  weight = -2
+
+  //generate new population
+  generatePopulation()
+
+  //restart entire CLT
+  BallList = []
+  heights = null
+}
+
 
 //set value of inputs when javascript ready
 document.addEventListener('DOMContentLoaded', function (event) {
