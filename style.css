@@ -21,6 +21,12 @@ button {
   position: relative;
 }
 
+#containerr {
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 #sample {
   position: absolute;
   left: 0;
@@ -68,9 +74,11 @@ button {
   border-bottom: 2px solid black;
 }
 
-p {
+#containerr div {
   margin-top: -5px;
   font-size: 18px;
+  width: 50%;
+  margin: auto;
 }
 
 #button,
@@ -84,7 +92,7 @@ p {
   height: 40px;
   padding-right: 10px;
   padding-left: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 }
 
 #randomDist,
@@ -100,7 +108,12 @@ p {
 
 h4 {
   margin: 0;
-  margin-top: 10px;
+  margin-top: 25px;
+  margin-bottom: 5px;
+}
+
+p {
+  font-size: 120%;
 }
 
 #exampleDist {
