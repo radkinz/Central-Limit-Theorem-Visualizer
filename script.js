@@ -177,7 +177,7 @@ let PopulationCanvasHeight = document.getElementById('populationCanvas').height
 
 //resize canvas and update variables when window resizes
 function resizeCanvas () {
-  document.getElementById('sampleCanvas').width = window.innerWidth * 0.5
+  document.getElementById('sampleCanvas').width = window.innerWidth * 0.5 
   document.getElementById('sampleCanvas').height = window.innerHeight * 0.35
   document.getElementById('populationCanvas').width = window.innerWidth * 0.5
   document.getElementById('populationCanvas').height = window.innerHeight * 0.35
