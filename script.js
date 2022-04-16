@@ -4,6 +4,9 @@ let sampleballcolor = '#FFD8BE'
 let samplebarcolor = '#B8B8FF'
 let populationbarcolor = '#FFD6AD'
 
+//store average
+let sampleAverage = []
+
 //class to handle sample graphic
 class SampleBall {
   constructor (sample, c) {
@@ -11,7 +14,6 @@ class SampleBall {
     this.y = 0
     this.x =
       this.getXpos() * (SampleCanvasWidth / max) + SampleCanvasWidth / max / 2
-    console.log(this.x, this.sampleNum)
     this.color = c
     this.dead = false
   }
@@ -177,7 +179,7 @@ let PopulationCanvasHeight = document.getElementById('populationCanvas').height
 
 //resize canvas and update variables when window resizes
 function resizeCanvas () {
-  document.getElementById('sampleCanvas').width = window.innerWidth * 0.5 
+  document.getElementById('sampleCanvas').width = window.innerWidth * 0.5
   document.getElementById('sampleCanvas').height = window.innerHeight * 0.35
   document.getElementById('populationCanvas').width = window.innerWidth * 0.5
   document.getElementById('populationCanvas').height = window.innerHeight * 0.35
@@ -407,9 +409,16 @@ function generatePopulation () {
     }
   }
 
+  //display population average
+  $("#averagePopulation").html(' ')
+  $("#averagePopulation").append('Population Average: ' + average(population))
+
   //graph population
   //setup population heights
   populationheights = []
+
+  //reset averages
+  sampleAverage = []
 
   for (let i = 0; i < max; i++) {
     populationheights.push(0)
@@ -468,6 +477,7 @@ function graphExampleData () {
   //re-set up heights and population list
   populationheights = []
   population = []
+  sampleAverage = []
   for (let i = 0; i < max; i++) {
     populationheights[i] = 0
   }
@@ -607,8 +617,17 @@ function addtograph (mean) {
     }
   }
 
+  //add average to sample list
+  sampleAverage.push(mean)
+
+  //grab overall average
+  console.log(average(sampleAverage))
+  $("#averageSample").html(' ')
+  $("#averageSample").append('Sample Average: ' + average(sampleAverage))
+
   //get freq and add to graph
   mean = Math.floor(mean)
+  console.log(mean)
   heights[mean] += 1
 }
 
@@ -686,6 +705,14 @@ function random (min, max) {
   return Math.floor(Math.random() * (max - min) + min)
 }
 
+function average (list) {
+  let avg = 0;
+  for (let i = 0; i < list.length; i++) {
+    avg += list[i]
+  }
+  return Math.floor(avg / list.length)
+}
+
 function newSampleSize () {
   //change sample size
   sampleSize = document.getElementById('sampleSize').value
@@ -732,7 +759,6 @@ function randomDist2 () {
   BallList = []
   heights = null
 }
-
 
 //set value of inputs when javascript ready
 document.addEventListener('DOMContentLoaded', function (event) {

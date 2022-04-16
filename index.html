@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="style.css" />
     <script src="script.js" defer></script>
 
@@ -64,7 +64,7 @@
             </button>
           </div>
           <div id="containerr">
-            <h4>Look at some <a href="https://www.kaggle.com/datasets/yasserh/walmart-dataset" target="_blank">real-life data!</a></h4>
+            <h3>Look at some <a href="https://www.kaggle.com/datasets/yasserh/walmart-dataset" target="_blank">real-life data!</a></h3>
             <button type="button" id="exampleDist" onclick="graphExampleData()">
               Walmart's Weekly Sales Data
             </button>
@@ -72,6 +72,12 @@
           </div>
           <div>
             <button id="button">Start Sampling</button>
+          </div>
+          <div id="dataContainer">
+            <h2>Visualization Data</h2>
+            <p>According to the Central Limit Theorem, as the sample distribution approaches normal, the sample average should approximate the population average.</p>
+            <div id="averagePopulation"></div> 
+            <div id="averageSample">Sample Average: 0</div>
           </div>
         </div>
       </div>

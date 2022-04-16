@@ -76,7 +76,7 @@ button {
 
 #containerr div {
   margin-top: -5px;
-  font-size: 18px;
+  font-size: 16px;
   width: 50%;
   margin: auto;
 }
@@ -99,17 +99,33 @@ button {
 #exampleDist {
   background-color: #f89dffad;
   font-size: 15px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 #button {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
-h4 {
+h3 {
   margin: 0;
   margin-top: 25px;
-  margin-bottom: 5px;
+}
+
+#averagePopulation {
+  margin-bottom: 7px;
+}
+
+#averagePopulation, #averageSample {
+  font-size: large;
+  font-weight: 500;
+}
+
+#dataContainer p {
+  width: 50%;
+  margin: auto;
+  margin-top: -13px;
+  margin-bottom: 15px;
+  font-size: 100%;
 }
 
 p {
@@ -122,7 +138,7 @@ p {
 
 input {
   height: 20px;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 #button:hover {
@@ -187,8 +203,7 @@ input {
     margin-top: -5px;
   }
   
-  #button,
-  #randomDist,
+  #button, #randomDist,
   #exampleDist {
     background-color: #de70ffa8;
     border: none;
@@ -200,7 +215,7 @@ input {
     padding-left: 10px;
     margin-bottom: 5px;
   }
-  
+
   #randomDist,
   #exampleDist {
     background-color: #f89dffad;
