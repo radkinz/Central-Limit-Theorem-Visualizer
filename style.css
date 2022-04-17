@@ -17,6 +17,13 @@ button {
   cursor: pointer;
 }
 
+#dataContainer {
+  display: flex;
+  justify-content: space-around;
+margin-top: -10px;
+}
+
+
 #canvascontainer {
   position: relative;
 }
@@ -90,15 +97,15 @@ button {
   border-radius: 5px;
   font-size: 20px;
   height: 40px;
-  padding-right: 10px;
-  padding-left: 10px;
+  padding-right: 7px;
+  padding-left: 7px;
   margin-bottom: 5px;
 }
 
 #randomDist,
 #exampleDist {
   background-color: #f89dffad;
-  font-size: 15px;
+  font-size: 13px;
   margin-top: 10px;
 }
 
@@ -209,7 +216,6 @@ input {
     border: none;
     font-weight: 800;
     border-radius: 5px;
-    font-size: 12px;
     height: 40px;
     padding-right: 10px;
     padding-left: 10px;
