@@ -20,9 +20,8 @@ button {
 #dataContainer {
   display: flex;
   justify-content: space-around;
-margin-top: -10px;
+  margin-top: -10px;
 }
-
 
 #canvascontainer {
   position: relative;
@@ -122,7 +121,8 @@ h3 {
   margin-bottom: 7px;
 }
 
-#averagePopulation, #averageSample {
+#averagePopulation,
+#averageSample {
   font-size: large;
   font-weight: 500;
 }
@@ -137,6 +137,7 @@ h3 {
 
 p {
   font-size: 120%;
+  margin-top: -3px;
 }
 
 #exampleDist {
@@ -199,8 +200,8 @@ input {
 
   #avgline {
     width: 100%;
-  }  
-  
+  }
+
   #main {
     padding-left: 20px;
     padding-right: 20px;
@@ -209,8 +210,9 @@ input {
   p {
     margin-top: -5px;
   }
-  
-  #button, #randomDist,
+
+  #button,
+  #randomDist,
   #exampleDist {
     background-color: #de70ffa8;
     border: none;
@@ -228,7 +230,7 @@ input {
     font-size: 12px;
     margin-top: 10px;
   }
-  
+
   #button {
     margin-top: 10px;
   }
@@ -237,22 +239,22 @@ input {
     font-size: 20px;
     margin-top: -5px;
   }
-  
+
   h4 {
     margin: 0;
     margin-top: 5px;
   }
-  
+
   #exampleDist {
     margin-top: 5px;
   }
-  
+
   input {
     height: 20px;
     margin-top: -5px;
   }
 
   .range {
-    width:35%;
+    width: 35%;
   }
 }
